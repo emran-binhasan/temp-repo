@@ -1,0 +1,7 @@
+.active_link {
+	font-weight: normal;
+	color: #ffffff;
+	background-color: #1a2b88;
+	border-radius: 9999px;
+	padding: 0.25rem 1rem;
+}
