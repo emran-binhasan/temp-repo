@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Markdown from "../../utils/Markdown";
 import FloatingButton from "../../utils/FloatingButton";
-import { ChevronLeft } from "lucide-react";
+import { IoIosArrowBack } from "react-icons/io";
 import useScrollToTop from "../../utils/useScrollToTop";
 import useTitle from "../../utils/useTitle";
 
@@ -42,13 +42,13 @@ const Posts = () => {
 				/>
 				<Markdown content={post?.body} />
 				<FloatingButton
-					icon={ChevronLeft}
+					icon={IoIosArrowBack}
 					borderColor="white"
 					iconSize={20}
 					hoverRadius={25}
 					buttonSpeed={0.3}
 					iconSpeed={0.9}
-					classnames={"border mt-10 border-black h-[2.580rem] w-[7.580rem]"}
+					classStyle={"border mt-10 border-black h-[2.580rem] w-[7.580rem]"}
 					handleClick={goBack}
 				/>
 			</div>

@@ -1,4 +1,4 @@
-import { CircleCheck } from "lucide-react";
+import { FaRegCircleCheck } from "react-icons/fa6";
 import React, { useState } from "react";
 import TypeComponents from "./account_components/TypeComponents";
 import Button from "../../../utils/Button";
@@ -29,7 +29,7 @@ const AccountType = () => {
 									key={doc.id}
 									className="flex items-center justify-start text-sm gap-x-2"
 								>
-									<CircleCheck
+									<FaRegCircleCheck
 										size={16}
 										strokeWidth={1.8}
 										className="text-nill"
@@ -44,7 +44,7 @@ const AccountType = () => {
 						<input
 							type="text"
 							value={"Enter mobile number"}
-							className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-2 focus:ring-gray-400 placeholder:text-hDhusor text-dhusor"
+							className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 						/>
 						{/* <input
 							type="submit"

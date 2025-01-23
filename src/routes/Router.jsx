@@ -54,34 +54,34 @@ const Router = createBrowserRouter([
 				element: <Posts />,
 			},
 			{
-				path:"/contact",
-				element: <Contact/>
-			}
-		],
-	},
-	{
-		path: "/open-bo-account",
-		element: <BOAccount />,
-		children: [
-			{
-				path: "bo-type",
-				element: <AccountType />,
+				path: "/contact",
+				element: <Contact />,
 			},
 			{
-				path: "basic",
-				element: <AccountBasic />,
-			},
-			{
-				path: "bank",
-				element: <AccountBank />,
-			},
-			{
-				path: "nominees",
-				element: <AccountNominees />,
-			},
-			{
-				path: "complete",
-				element: <AccountComplete />,
+				path: "/open-bo-account",
+				element: <BOAccount />,
+				children: [
+					{
+						path: "bo-type",
+						element: <AccountType />,
+					},
+					{
+						path: "basic",
+						element: <AccountBasic />,
+					},
+					{
+						path: "bank",
+						element: <AccountBank />,
+					},
+					{
+						path: "nominees",
+						element: <AccountNominees />,
+					},
+					{
+						path: "complete",
+						element: <AccountComplete />,
+					},
+				],
 			},
 		],
 	},

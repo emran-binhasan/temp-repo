@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { MenuIcon, X, Facebook, Linkedin, Twitter, ChevronDown, Phone, SearchIcon, User } from "lucide-react";
+
+import { FaPhone, FaFacebook, FaTwitter, FaLinkedin, FaUser } from "react-icons/fa6";
+import { IoClose, IoSearch } from "react-icons/io5";
+import { IoIosArrowDown } from "react-icons/io";
+import { CgMenuRight } from "react-icons/cg";
+
 import icon from "../assets/icons/logo.png";
 import icon1 from "../assets/icons/logo1.png";
 import useScroll from "../utils/useScroll";
 import FloatingButton from "../utils/FloatingButton";
 import { Link, NavLink } from "react-router-dom";
 import Button from "../utils/Button";
-import { CgMenuLeft } from "react-icons/cg";
 
 const Header = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -105,21 +109,21 @@ const Header = () => {
 			>
 				<div className="flex items-center justify-start gap-x-3">
 					<FloatingButton
-						icon={CgMenuLeft}
+						icon={CgMenuRight}
 						handleClick={toggleMenu}
-						classnames="1rem"
-						iconSize={34}
+						classStyle="p-[1rem] [rotate:180deg]"
+						iconSize={28}
 						hoverRadius={25}
 						buttonSpeed={0.3}
 						iconSpeed={0.9}
 					/>
-					<div className="hidden md:block ml-2 xl:ml-6 lg:ml-4">
+					<div className="hidden md:block">
 						{isScrolled ? (
 							<Link to="/">
 								<img
 									src={icon}
 									alt="logo"
-									className="h-10  w-fit"
+									className="h-10 ml-2 w-fit"
 								/>
 							</Link>
 						) : (
@@ -149,7 +153,7 @@ const Header = () => {
 								isScrolled ? "bg-white" : "bg-white"
 							} `}
 						>
-							<Phone
+							<FaPhone
 								size={20}
 								strokeWidth={1.2}
 							/>
@@ -160,7 +164,7 @@ const Header = () => {
 						<Button
 							classStyle="hidden lg:flex items-center justify-center gap-x-2"
 							icon={
-								<User
+								<FaUser
 									size={20}
 									strokeWidth={1.2}
 								/>
@@ -170,12 +174,12 @@ const Header = () => {
 					</Link>
 
 					<FloatingButton
-						icon={SearchIcon}
+						icon={IoSearch}
 						iconSize={20}
 						hoverRadius={25}
 						buttonSpeed={0.3}
 						iconSpeed={0.9}
-						classnames={`lg:w-[2.580rem] lg:h-[2.580rem] w-[2.790rem] h-[2.790rem] ${
+						classStyle={`lg:w-[2.580rem] lg:h-[2.580rem] w-[2.790rem] h-[2.790rem] ${
 							isScrolled ? "border border-black" : "border border-white"
 						}`}
 					/>
@@ -221,14 +225,14 @@ const Header = () => {
 						onClick={toggleMenu}
 						className="absolute top-0 left-0 z-50 text-white lg:top-5 lg:left-4"
 					>
-						<X
+						<IoClose
 							size={32}
 							strokeWidth={1.5}
 						/>
 					</button>
 
 					{/* Navigation */}
-					<div className="relative grid justify-between w-full h-full grid-cols-1 px-6 pt-12 lg:px-6 lg:pt-32 lg:grid-cols-2 lg:gap-x-10 xl:flex-row">
+					<div className="relative grid justify-between w-full h-full grid-cols-1 px-4 pt-12 lg:px-6 lg:pt-32 lg:grid-cols-2 lg:gap-x-10 xl:flex-row">
 						{/* overlay */}
 						<div
 							className={`
@@ -241,21 +245,21 @@ const Header = () => {
 							}}
 						/>
 						{/* links */}
-						<ul className="font-eina md:pt-6  nav_link text-[18px] lg:text-[20px] flex flex-col gap-y-2 lg:gap-y-3 duration-300">
+						<ul className="font-eina nav_link text-[18px] lg:text-[20px] flex flex-col gap-y-2 lg:gap-y-3 duration-300">
 							<NavLink
 								to="/"
-								className="font-semibold cursor-pointer links"
+								className="font-black cursor-pointer links"
 								onClick={toggleMenu}
 							>
 								Home
 							</NavLink>
 							<li
-								className={`flex items-center justify-between w-full -mb-3 font-semibold cursor-pointer links ${
+								className={`flex items-center justify-between w-full -mb-3 font-black cursor-pointer links ${
 									showAboutUs ? "border-b border-white" : ""
 								}`}
 								onClick={() => setShowAboutUs((prev) => !prev)}
 							>
-								About Us <ChevronDown size={20} />
+								About Us <IoIosArrowDown />
 							</li>
 							{/* when about us is clicked show the below contents  */}
 							<div
@@ -290,12 +294,12 @@ const Header = () => {
 							<NavLink
 								to="/services"
 								onClick={toggleMenu}
-								className="font-semibold cursor-pointer links"
+								className="font-black cursor-pointer links"
 							>
 								Services
 							</NavLink>
 							<a
-								className="font-semibold cursor-pointer links"
+								className="font-black cursor-pointer links"
 								href="http://dsebd.org/"
 								target="_blank"
 								rel="noreferrer"
@@ -305,7 +309,7 @@ const Header = () => {
 							</a>
 							<NavLink
 								to="/vision"
-								className="font-semibold cursor-pointer links"
+								className="font-black cursor-pointer links"
 								onClick={toggleMenu}
 							>
 								Vision & Mission
@@ -313,13 +317,13 @@ const Header = () => {
 							<NavLink
 								to="/download"
 								onClick={toggleMenu}
-								className="font-semibold cursor-pointer links"
+								className="font-black cursor-pointer links"
 							>
 								Download
 							</NavLink>
 							<NavLink
 								to="/contact"
-								className="font-semibold cursor-pointer links"
+								className="font-black cursor-pointer links"
 								onClick={toggleMenu}
 							>
 								Contact
@@ -356,15 +360,15 @@ const Header = () => {
 									</p>
 									<div className="flex w-full mt-2 lg:mt-6 gap-x-5">
 										<p className="flex items-center gap-x-1">
-											<Facebook size={16} />
+											<FaFacebook />
 											Facebook
 										</p>
 										<p className="flex items-center gap-x-1">
-											<Linkedin size={16} />
+											<FaLinkedin />
 											LinkedIn
 										</p>
 										<p className="flex items-center gap-x-1">
-											<Twitter size={16} />
+											<FaTwitter />
 											Twitter
 										</p>
 									</div>

@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 
-
 import AccountLayout from "./account_component/AccountLayout";
 import useScrollToTop from "../../utils/useScrollToTop";
 import Header from "../../components/Header";
@@ -12,9 +11,9 @@ const BOAccount = () => {
 
 	return (
 		<>
-		<Cursor/>
+			{/* <Cursor/> */}
 			<div className="bg-white">
-				<Header />
+				{/* <Header /> */}
 				<div className="bg-[#fff] lg:px-28 pt-32 lg:pt-24 font-inter">
 					<div className="bg-[#e5effb] flex gap-y-8 flex-col p-2 lg:p-16 shadow-sm rounded-xl">
 						<>
@@ -23,7 +22,7 @@ const BOAccount = () => {
 						<Outlet />
 					</div>
 				</div>
-				<Footer />
+				{/* <Footer /> */}
 			</div>
 		</>
 	);

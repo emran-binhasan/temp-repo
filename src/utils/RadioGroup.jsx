@@ -1,11 +1,11 @@
-import { Asterisk } from "lucide-react";
 import React from "react";
+import { FaAsterisk } from "react-icons/fa6";
 
 const RadioGroup = ({ classStyle, label, name, options, value, onChange, required }) => {
 	return (
 		<div className="space-y-1 md:space-y-2">
 			<label className="flex items-center justify-start text-xs font-semibold md:text-sm">
-				{required && <Asterisk size={16} />}
+				{required && <FaAsterisk className="w-2.5 h-2.5 md:w-3 md:h-3" />}
 				{label}
 			</label>
 			<div className={`${classStyle}`}>

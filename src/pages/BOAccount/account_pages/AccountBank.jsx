@@ -4,7 +4,7 @@ import InputField from "../../../utils/InputField";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../utils/Button";
 import FloatingButton from "../../../utils/FloatingButton";
-import { ChevronLeft } from "lucide-react";
+import { IoIosArrowBack } from "react-icons/io";
 
 const AccountBank = () => {
 	const navigate = useNavigate();
@@ -134,7 +134,7 @@ const AccountBank = () => {
 								name="checkbook_image"
 								accept="image/*"
 								onChange={handleChange}
-								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-2 focus:ring-gray-400 placeholder:text-hDhusor text-dhusor"
+								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 								required
 							/>
 							{formData.checkbook_image && (
@@ -151,13 +151,13 @@ const AccountBank = () => {
 					{/* submit button */}
 					<div className="flex items-center justify-end mt-12 lg:col-span-2 gap-x-4">
 						<FloatingButton
-							icon={ChevronLeft}
+							icon={IoIosArrowBack}
 							borderColor="white"
 							iconSize={20}
 							hoverRadius={25}
 							buttonSpeed={0.3}
 							iconSpeed={0.9}
-							classnames={"border border-black h-[2.580rem] w-[7.580rem]"}
+							classStyle={"border border-black h-[2.580rem] w-[7.580rem]"}
 							handleClick={goBack}
 						/>
 						<Button

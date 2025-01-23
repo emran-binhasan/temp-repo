@@ -1,20 +1,20 @@
 import React from "react";
 import logo from "../assets/images/footer/Logo-ak-khan.png";
-import { ChevronRight, Facebook, Linkedin, Twitter } from "lucide-react";
+import { IoIosArrowForward } from "react-icons/io";
+import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa6";
 import img1 from "../assets/images/footer/BSEC-1.png";
 import img2 from "../assets/images/footer/DSE.png";
 import img3 from "../assets/images/footer/CSE.png";
 import img4 from "../assets/images/footer/CDBL.png";
 import { Link } from "react-router-dom";
-import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 	};
 	return (
-		<div className="bg-white md:my-16 px-4">
-			<div className="grid my-10 mx-2 mt-16 lg:mx-16 gap-y-8 lg:grid-cols-6 text-darkNill">
+		<div className="px-4 bg-white md:my-16">
+			<div className="grid mx-2 my-10 mt-16 lg:mx-16 gap-y-8 lg:grid-cols-6 text-darkNill">
 				<div className="col-span-2 max-w-[300px]">
 					<div className="flex flex-col justify-start gap-y-8">
 						<img
@@ -41,7 +41,7 @@ const Footer = () => {
 								type="submit"
 								className="absolute right-0  py-2.5 text-white px-2.5 rounded-full bg-darkNill"
 							>
-								<ChevronRight />
+								<IoIosArrowForward />
 							</button>
 						</form>
 						<div>
@@ -70,7 +70,6 @@ const Footer = () => {
 							</div>
 						</div>
 					</div>
-					
 				</div>
 				<div className="col-span-1">
 					<h4 className="text-[14px] mb-8 font-medium uppercase">Import Links</h4>
@@ -205,24 +204,24 @@ const Footer = () => {
 					</div>
 				</div>
 			</div>
-			<div className="md:pt-6 mx-2 lg:mx-16 sm:flex  items-center justify-between">
-			<div className="flex flex-row items-center justify-center sm:justify-start mt-4 lg:mt-10  gap-x-8">
-						<FaFacebook
-							className="rounded-full p-2.5 border border-darkNill text-darkNill h-fit w-fit"
-							size={18}
-						/>
-						<FaLinkedin
-							className="rounded-full p-2.5 border border-darkNill text-darkNill h-fit w-fit"
-							size={18}
-						/>
-						<FaTwitter
-							className="rounded-full p-2.5 border border-darkNill text-darkNill h-fit w-fit"
-							size={18}
-						/>
-			</div> 
-			<div className="flex flex-row items-center mt-4 lg:mt-10 gap-x-8">
-				<p className="text-[#696969] mx-auto">Copyright ©2024 A. K. Khan Securities Ltd.</p>
-			</div>
+			<div className="items-center justify-between mx-2 md:pt-6 lg:mx-16 sm:flex">
+				<div className="flex flex-row items-center justify-center mt-4 sm:justify-start lg:mt-10 gap-x-8">
+					<FaFacebook
+						className="rounded-full p-2.5 border border-darkNill text-darkNill h-fit w-fit"
+						size={18}
+					/>
+					<FaLinkedin
+						className="rounded-full p-2.5 border border-darkNill text-darkNill h-fit w-fit"
+						size={18}
+					/>
+					<FaTwitter
+						className="rounded-full p-2.5 border border-darkNill text-darkNill h-fit w-fit"
+						size={18}
+					/>
+				</div>
+				<div className="flex flex-row items-center mt-4 lg:mt-10 gap-x-8">
+					<p className="text-[#696969] mx-auto">Copyright ©2024 A. K. Khan Securities Ltd.</p>
+				</div>
 			</div>
 		</div>
 	);

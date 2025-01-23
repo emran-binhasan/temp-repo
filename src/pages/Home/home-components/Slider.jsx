@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import "../../../assets/styles/Slider.css";
 
 const slides = [
@@ -168,13 +168,13 @@ const Slider = () => {
 						className="relative p-2 duration-300 active:outline-0 focus:outline-0 button-border"
 						onClick={goToNext}
 					>
-						<ChevronRight size={24} />
+						<IoIosArrowForward size={24} />
 					</button>
 					<button
 						onClick={goToPrev}
 						className="relative p-2 duration-300 active:outline-0 focus:outline-0 button-border"
 					>
-						<ChevronLeft size={24} />
+						<IoIosArrowBack size={24} />
 					</button>
 				</div>
 			</div>

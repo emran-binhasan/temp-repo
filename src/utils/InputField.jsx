@@ -1,4 +1,4 @@
-import { Asterisk } from "lucide-react";
+import { FaAsterisk } from "react-icons/fa6";
 import React from "react";
 
 const InputField = ({ onChange, label, value, name, placeholder, type, required }) => {
@@ -9,7 +9,7 @@ const InputField = ({ onChange, label, value, name, placeholder, type, required 
 					htmlFor={name}
 					className="flex items-center justify-start text-xs font-semibold md:text-sm"
 				>
-					{required && <Asterisk size={16} />}
+					{required && <FaAsterisk className="w-2.5 h-2.5 md:w-3 md:h-3" />}
 					{label}
 				</label>
 				<input
@@ -19,7 +19,7 @@ const InputField = ({ onChange, label, value, name, placeholder, type, required 
 					value={value}
 					onChange={onChange}
 					placeholder={placeholder}
-					className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-2 focus:ring-gray-400 placeholder:text-hDhusor text-dhusor"
+					className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 					required={required}
 				/>
 			</div>

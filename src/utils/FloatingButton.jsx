@@ -9,7 +9,7 @@ const FloatingButton = ({
 	iconSpeed = 1.0,
 	paddingSize,
 	handleClick,
-	classnames,
+	classStyle,
 }) => {
 	const isScrolled = useScroll("top-navbar");
 	const buttonRef = useRef(null);
@@ -27,7 +27,6 @@ const FloatingButton = ({
 			const distance = Math.sqrt(dx * dx + dy * dy);
 
 			if (distance < hoverRadius) {
-				// Move button and icon
 				setButtonTransform(`translate(${dx * buttonSpeed}px, ${dy * buttonSpeed}px)`);
 				setIconTransform(`translate(${dx * iconSpeed}px, ${dy * iconSpeed}px)`);
 			} else {
@@ -55,7 +54,7 @@ const FloatingButton = ({
 				ref={buttonRef}
 				className={`rounded-full relative flex items-center justify-center ${
 					isScrolled ? "text-black" : "text-white"
-				} ${classnames}`}
+				} ${classStyle}`}
 				style={{
 					transform: buttonTransform,
 					transition: "transform 0.3s ease",

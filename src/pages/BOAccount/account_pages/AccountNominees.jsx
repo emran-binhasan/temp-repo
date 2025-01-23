@@ -4,8 +4,9 @@ import InputField from "../../../utils/InputField";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../utils/Button";
 import FloatingButton from "../../../utils/FloatingButton";
-import { ChevronLeft } from "lucide-react";
+import { IoIosArrowBack } from "react-icons/io";
 import axios from "axios";
+import RadioGroup from "../../../utils/RadioGroup";
 
 const AccountNominees = () => {
 	const navigate = useNavigate();
@@ -238,13 +239,17 @@ const AccountNominees = () => {
 						required
 					/>
 					{/* nominees Sex */}
-					<InputField
-						onChange={handleChange}
+					<RadioGroup
 						label="Sex"
-						value={formData.sex}
 						name="sex"
-						placeholder="Sex"
-						type="text"
+						value={formData.sex}
+						onChange={handleChange}
+						options={[
+							{ label: "Male", value: "male" },
+							{ label: "Female", value: "female" },
+							{ label: "Other", value: "other" },
+						]}
+						classStyle="flex justify-between items-center w-fit m-0"
 						required
 					/>
 					{/* NID_front image */}
@@ -256,7 +261,7 @@ const AccountNominees = () => {
 								name="NID_front_image"
 								accept="image/*"
 								onChange={handleChange}
-								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-2 focus:ring-gray-400 placeholder:text-hDhusor text-dhusor"
+								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 							/>
 							{formData.NID_front_image && (
 								<div className="h-10 w-28">
@@ -278,7 +283,7 @@ const AccountNominees = () => {
 								name="NID_back_image"
 								accept="image/*"
 								onChange={handleChange}
-								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-2 focus:ring-gray-400 placeholder:text-hDhusor text-dhusor"
+								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 							/>
 							{formData.NID_back_image && (
 								<div className="h-10 w-28">
@@ -410,13 +415,17 @@ const AccountNominees = () => {
 							required
 						/>
 						{/* nominees Sex */}
-						<InputField
-							onChange={handleChange}
+						<RadioGroup
 							label="Sex"
+							name="sex_1"
 							value={formData.sex_1}
-							name="sex"
-							placeholder="Sex"
-							type="text"
+							onChange={handleChange}
+							options={[
+								{ label: "Male", value: "male" },
+								{ label: "Female", value: "female" },
+								{ label: "Other", value: "other" },
+							]}
+							classStyle="flex justify-between items-center w-fit m-0"
 							required
 						/>
 						{/* NID_front image */}
@@ -428,7 +437,7 @@ const AccountNominees = () => {
 									name="NID_front_image_1"
 									accept="image/*"
 									onChange={handleChange}
-									className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-2 focus:ring-gray-400 placeholder:text-hDhusor text-dhusor"
+									className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 								/>
 								{formData.NID_front_image && (
 									<div className="h-10 w-28">
@@ -450,7 +459,7 @@ const AccountNominees = () => {
 									name="NID_back_image_1"
 									accept="image/*"
 									onChange={handleChange}
-									className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-2 focus:ring-gray-400 placeholder:text-hDhusor text-dhusor"
+									className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 								/>
 								{formData.NID_back_image && (
 									<div className="h-10 w-28">
@@ -468,13 +477,13 @@ const AccountNominees = () => {
 				{/* submit button */}
 				<div className="flex items-center justify-end mt-12 lg:col-span-2 gap-x-4">
 					<FloatingButton
-						icon={ChevronLeft}
+						icon={IoIosArrowBack}
 						borderColor="white"
 						iconSize={20}
 						hoverRadius={25}
 						buttonSpeed={0.3}
 						iconSpeed={0.9}
-						classnames={"border border-black h-[2.580rem] w-[7.580rem]"}
+						classStyle={"border border-black h-[2.580rem] w-[7.580rem]"}
 						handleClick={goBack}
 					/>
 					<Button

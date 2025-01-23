@@ -8,6 +8,7 @@ const Markdown = ({ content, classStyle }) => {
 				className={`leading-6 text-justify [word-spacing:1.5px] lg:[word-spacing:4px] text-black break-words whitespace-pre-line ${classStyle}`}
 				remarkPlugins={[remarkGfm]}
 				components={{
+					br: ({ node, ...props }) => <br className="leading-6" />,
 					h1: ({ node, ...props }) => (
 						<h1
 							className="mb-2 text-3xl font-bold text-black"
@@ -16,7 +17,7 @@ const Markdown = ({ content, classStyle }) => {
 					),
 					h2: ({ node, ...props }) => (
 						<h2
-							className="mb-2 text-2xl font-semibold text-black"
+							className="text-2xl font-semibold text-black"
 							{...props}
 						/>
 					),
@@ -28,13 +29,13 @@ const Markdown = ({ content, classStyle }) => {
 					),
 					p: ({ node, ...props }) => (
 						<p
-							className="mb-1"
+							className=""
 							{...props}
 						/>
 					),
 					ul: ({ node, ...props }) => (
 						<ul
-							className="mb-4 ml-5 list-disc"
+							className="mb-4 ml-5 -space-y-6 list-disc"
 							{...props}
 						/>
 					),
@@ -46,7 +47,7 @@ const Markdown = ({ content, classStyle }) => {
 					),
 					li: ({ node, ...props }) => (
 						<li
-							className="mb-1"
+							className=""
 							{...props}
 						/>
 					),

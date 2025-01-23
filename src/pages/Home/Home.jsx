@@ -1,5 +1,4 @@
 import TabSec from "./home-components/Services";
-import img from "../../assets/images/slider/1.jpg";
 import ThirdSec from "./home-components/ThirdSec";
 import Posts from "./home-components/Posts";
 import useScrollToTop from "../../utils/useScrollToTop";
@@ -12,7 +11,6 @@ const Home = () => {
 
 	return (
 		<div>
-			
 			<Slider />
 			<TabSec />
 

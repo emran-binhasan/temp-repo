@@ -2,7 +2,7 @@ import { useScroll } from "framer-motion";
 import React from "react";
 import useScrollToTop from "../../utils/useScrollToTop";
 import banner from "../../assets/images/banners/download.jpg";
-import { Download } from "lucide-react";
+import { FaCloudDownloadAlt } from "react-icons/fa";
 import useTitle from "../../utils/useTitle";
 
 const Downloads = () => {
