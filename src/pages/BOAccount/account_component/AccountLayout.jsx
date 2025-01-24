@@ -68,7 +68,7 @@ const AccountLayout = () => {
 						style={sliderStyle}
 					/>
 				</div> */}
-				<ul className="flex items-center justify-between w-full">
+				<ul className="grid w-full grid-cols-2 gap-4 lg:grid-cols-4">
 					{navLinks.map((link, index) => (
 						<li
 							key={link.id}

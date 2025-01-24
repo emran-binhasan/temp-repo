@@ -117,13 +117,13 @@ const Header = () => {
 						buttonSpeed={0.3}
 						iconSpeed={0.9}
 					/>
-					<div className="hidden md:block">
+					<div className="">
 						{isScrolled ? (
 							<Link to="/">
 								<img
 									src={icon}
 									alt="logo"
-									className="h-10 ml-2 w-fit"
+									className="h-8 ml-2 md:h-10 w-fit"
 								/>
 							</Link>
 						) : (
@@ -131,7 +131,7 @@ const Header = () => {
 								<img
 									src={icon1}
 									alt="logo"
-									className="h-10 ml-2 w-fit"
+									className="h-8 ml-2 md:h-10 w-fit"
 								/>
 							</Link>
 						)}
@@ -160,9 +160,12 @@ const Header = () => {
 							<span className="hidden lg:block">+88028833510</span>
 						</span>
 					</button>
-					<Link to="/open-bo-account/bo-type">
+					<Link
+						to="/open-bo-account/bo-type"
+						className="hidden lg:block"
+					>
 						<Button
-							classStyle="hidden lg:flex items-center justify-center gap-x-2"
+							classStyle="flex items-center justify-center gap-x-2"
 							icon={
 								<FaUser
 									size={20}
@@ -171,6 +174,12 @@ const Header = () => {
 							}
 							content="Open BO Account"
 						/>
+					</Link>
+					<Link
+						to="/open-bo-account/bo-type"
+						className="block p-3 border rounded-full lg:hidden border-dhusor"
+					>
+						<FaUser size={20} />
 					</Link>
 
 					<FloatingButton

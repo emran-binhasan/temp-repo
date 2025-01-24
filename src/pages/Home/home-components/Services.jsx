@@ -5,71 +5,74 @@ import img2 from "../../../assets/images/tabs/2.jpeg";
 import img3 from "../../../assets/images/tabs/3.jpeg";
 import img4 from "../../../assets/images/tabs/4.jpeg";
 
-const Services = () => {
-	const tabsData = [
-		{
-			id: 1,
-			label: <p>Brokerage Service</p>,
-			image: img1,
-			para: (
-				<p>
-					A. K. Khan Securities Limited is dedicated to delivering excellence in brokerage services,
-					offering exciting prospects to both individual and institutional investors. Regardless of
-					your trading frequency or the size of your account, entrusting us with your investments
-					ensures you receive the utmost care and attention. We are committed to providing
-					unparalleled service and opportunities that align with your financial aspirations.With A.
-					K. Khan Securities, your investment journey is in safe hands.
-				</p>
-			),
-		},
-		{
-			id: 2,
-			label: <p>IPO Application</p>,
-			image: img2,
-			para: (
-				<p>
-					Embark on an investment journey in the flourishing stock market of Bangladesh with IPO
-					Application - your ultimate gateway to accessing and applying for exciting Initial Public
-					Offerings.Our intuitive platform allows you to effortlessly explore the latest IPOs,
-					analyze company profiles, and submit applications seamlessly. Don't let this chance slip
-					away to be a part of Bangladesh's thriving investment landscape.Join IPO Application now
-					and confidently build your portfolio for a prosperous future.
-				</p>
-			),
-		},
-		{
-			id: 3,
-			label: <p>DP Service</p>,
-			image: img3,
-			para: (
-				<p>
-					Best Approach to Security Consultancy Join thousands of satisfied investors who trust DP
-					Service to navigate the complex world of stocks with ease. Don't miss out on lucrative
-					opportunities - start your journey toward financial freedom today with DP Service.
-					Financial Analysis Financial analysis plays a vital role in driving strategic decisions
-					and ensuring sustainable growth. If you need insights, tools, or specific methodologies to
-					enhance your work, feel free to ask!
-				</p>
-			),
-		},
-		{
-			id: 4,
-			label: <p>Margin Loan Facilities</p>,
-			image: img4,
-			para: (
-				<p>
-					Unlock the potential of your stock market investments with our cutting-edge Margin Loan
-					Facilities tailored for the dynamic stock market in Bangladesh.Empower yourself to seize
-					profitable opportunities and maximize returns. With flexible terms and competitive
-					interest rates, leverage your existing portfolio to amplify your investment power.Don’t
-					let financial constraints hold you back – capitalize on the market’s potential with our
-					Margin Loan Facilities and elevate your investment journey to new heights. Contact us
-					today to get started.
-				</p>
-			),
-		},
-	];
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 
+const tabsData = [
+	{
+		id: 1,
+		label: <p>Brokerage Service</p>,
+		image: img1,
+		para: (
+			<p>
+				A. K. Khan Securities Limited is dedicated to delivering excellence in brokerage services,
+				offering exciting prospects to both individual and institutional investors. Regardless of your
+				trading frequency or the size of your account, entrusting us with your investments ensures you
+				receive the utmost care and attention. We are committed to providing unparalleled service and
+				opportunities that align with your financial aspirations.With A. K. Khan Securities, your
+				investment journey is in safe hands.
+			</p>
+		),
+	},
+	{
+		id: 2,
+		label: <p>IPO Application</p>,
+		image: img2,
+		para: (
+			<p>
+				Embark on an investment journey in the flourishing stock market of Bangladesh with IPO
+				Application - your ultimate gateway to accessing and applying for exciting Initial Public
+				Offerings.Our intuitive platform allows you to effortlessly explore the latest IPOs, analyze
+				company profiles, and submit applications seamlessly. Don't let this chance slip away to be a
+				part of Bangladesh's thriving investment landscape.Join IPO Application now and confidently
+				build your portfolio for a prosperous future.
+			</p>
+		),
+	},
+	{
+		id: 3,
+		label: <p>DP Service</p>,
+		image: img3,
+		para: (
+			<p>
+				Best Approach to Security Consultancy Join thousands of satisfied investors who trust DP
+				Service to navigate the complex world of stocks with ease. Don't miss out on lucrative
+				opportunities - start your journey toward financial freedom today with DP Service. Financial
+				Analysis Financial analysis plays a vital role in driving strategic decisions and ensuring
+				sustainable growth. If you need insights, tools, or specific methodologies to enhance your
+				work, feel free to ask!
+			</p>
+		),
+	},
+	{
+		id: 4,
+		label: <p>Margin Loan Facilities</p>,
+		image: img4,
+		para: (
+			<p>
+				Unlock the potential of your stock market investments with our cutting-edge Margin Loan
+				Facilities tailored for the dynamic stock market in Bangladesh.Empower yourself to seize
+				profitable opportunities and maximize returns. With flexible terms and competitive interest
+				rates, leverage your existing portfolio to amplify your investment power.Don’t let financial
+				constraints hold you back – capitalize on the market’s potential with our Margin Loan
+				Facilities and elevate your investment journey to new heights. Contact us today to get
+				started.
+			</p>
+		),
+	},
+];
+
+const Services = () => {
 	return (
 		<div className="flex flex-col mx-4 mt-24 lg:mx-16">
 			<div className="flex flex-col items-center justify-between my-20 lg:flex-row gap-x-8">
@@ -94,7 +97,9 @@ const Services = () => {
 			{/* tab section */}
 			<div className="flex flex-col items-center justify-center">
 				<h2 className="text-[2.63rem] font-semibold text-black mb-8">Our Services</h2>
-				<AnimatedTabs tabs={tabsData} />
+				<div>
+					<AnimatedTabs tabs={tabsData} />
+				</div>
 			</div>
 		</div>
 	);
@@ -130,23 +135,22 @@ const AnimatedTabs = ({ tabs }) => {
 	return (
 		<div className="w-full mx-auto">
 			<div className="relative mb-4">
-				<div className="grid grid-cols-4">
+				<div className="grid grid-cols-2 gap-y-2 lg:grid-cols-4">
 					{tabs.map((tab, index) => (
 						<button
 							key={index}
 							ref={(el) => (tabRefs.current[index] = el)}
-							className={`px-1 lg:px-4 rounded-full hover:text-white duration-300 hover:bg-nill relative z-20 whitespace-nowrap focus:outline-0 py-0.5 lg:py-5 text-sm lg:text-lg font-semibold ${
+							className={`px-0 lg:px-4 rounded-full hover:text-white duration-300 hover:bg-nill relative z-20 whitespace-nowrap focus:outline-0 py-2 lg:py-5 text-sm lg:text-lg font-semibold ${
 								activeTab === index ? "text-[#ffffff]" : "text-black"
 							}`}
 							onClick={() => handleTabClick(index)}
 						>
-							<span className="hidden md:block">{tab.label}</span>
-							<span className="block md:hidden">{tab.id}</span>
+							<span className="">{tab.label}</span>
 						</button>
 					))}
 				</div>
 				<div
-					className="absolute bottom-0 z-10 h-full transition-all duration-300 rounded-full bg-nill"
+					className="absolute bottom-0 z-10 transition-all duration-300 rounded-full h-fit lg:h-full bg-nill"
 					style={sliderStyle}
 				/>
 			</div>

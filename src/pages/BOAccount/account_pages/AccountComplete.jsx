@@ -8,20 +8,48 @@ import { useNavigate } from "react-router-dom";
 const AccountComplete = () => {
 	const navigate = useNavigate();
 
+	const formData = JSON.parse(localStorage.getItem("formData")) || [];
+	console.log("formData: ", formData);
+
+	const submitData = async () => {
+		try {
+			const response = await fetch("https://akk-khan-final.lifextory.com/open-bo-account", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify(formData),
+			});
+
+			if (!response.ok) {
+				throw new Error(`Error: ${response.statusText}`);
+			}
+
+			const result = await response.json();
+			console.log("Response:", result);
+		} catch (error) {
+			console.error("Error:", error.message);
+		}
+	};
+
+	// Example usage to submit the formData
+	// submitData(formData);
+
 	// go back button
 	const goBack = () => {
 		navigate(-1);
 	};
 
 	return (
-		<form>
+		<div>
+			{/* <form onSubmit={handleSubmit}>
 			<input
 				type="checkbox"
 				name="Submit Form"
 				id=""
 				required
 			/>
-			{/* submit button */}
 			<div className="flex items-center justify-end mt-12 lg:col-span-2 gap-x-4">
 				<FloatingButton
 					icon={IoIosArrowBack}
@@ -38,7 +66,9 @@ const AccountComplete = () => {
 					content="Save & Next"
 				/>
 			</div>
-		</form>
+		</form> */}
+			<button onClick={submitData}>submit</button>
+		</div>
 	);
 };
 

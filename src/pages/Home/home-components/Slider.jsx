@@ -56,25 +56,21 @@ const Slider = () => {
 	const slides = [
 		{
 			id: 1,
-			mobile: 1,
 			title: "Seamless capital market investment",
 			image: "https://i.ibb.co/fYmsrwZ/1.webp",
 		},
 		{
 			id: 2,
-			mobile: 2,
 			title: "Stock trade at the palm of your hand",
 			image: "https://i.ibb.co/LZ4cZ1F/4.webp",
 		},
 		{
 			id: 3,
-			mobile: 3,
 			title: "Know what you could have earned by investing",
 			image: "https://i.ibb.co/jDhSVZ6/3.webp",
 		},
 		{
 			id: 4,
-			mobile: 4,
 			title: "Take the informed decision to minimize risk",
 			image: "https://i.ibb.co/LZ4cZ1F/4.webp",
 		},
@@ -90,11 +86,30 @@ const Slider = () => {
 
 	const [thumbnailRef] = useKeenSlider(
 		{
-			initial: 0,
-			slides: {
-				perView: 4,
-				spacing: 10,
+			mode: "free-snap",
+
+			breakpoints: {
+				"(min-width: 300px)": {
+					slides: { origin: "center", perView: 1.5, spacing: 20 },
+					loop: true,
+					drag: true,
+				},
+				"(min-width: 600px)": {
+					slides: { perView: 2, spacing: 40, origin: "auto" },
+					loop: true,
+					drag: false,
+				},
+				"(min-width: 1000px)": {
+					slides: { perView: 4, spacing: 0, origin: "auto" },
+					loop: false,
+					drag: false,
+				},
 			},
+			// slides: {
+			// 	origin: "center",
+			// 	perView: 1.5,
+			// 	spacing: 20,
+			// },
 		},
 		[ThumbnailPlugin(instanceRef)]
 	);
@@ -142,7 +157,7 @@ const Slider = () => {
 			{/* Thumbnail Slider */}
 			<div
 				ref={thumbnailRef}
-				className="absolute overflow-hidden thumbnail bottom-1/4 lg:bottom-14 md:left-14 left-4 right-4 lg:left-28 md:right-14 lg:right-28"
+				className="absolute left-0 overflow-hidden thumbnail bottom-[20%] lg:bottom-24 md:left-14 right-4 lg:left-28 md:right-14 lg:right-28"
 			>
 				<div className="flex justify-between">
 					{slides.map((slide) => (
@@ -150,12 +165,7 @@ const Slider = () => {
 							key={slide.id}
 							className="relative w-full text-white select-none keen-slider__slide"
 						>
-							<p className="w-[20ch] lg:block hidden text-lg text-white font-normal">
-								{slide.title}
-							</p>
-							<p className="w-[20ch] lg:hidden  block text-lg text-white font-normal">
-								{slide.mobile}
-							</p>
+							<p className="text-lg font-normal text-white w-fit">{slide.title}</p>
 						</div>
 					))}
 				</div>

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useScrollToTop from "../../../utils/useScrollToTop";
 import InputField from "../../../utils/InputField";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../utils/Button";
 import FloatingButton from "../../../utils/FloatingButton";
 import { IoIosArrowBack } from "react-icons/io";
+import Compressor from "compressorjs";
 
 const AccountBank = () => {
 	const navigate = useNavigate();
@@ -12,29 +13,57 @@ const AccountBank = () => {
 	useScrollToTop();
 
 	const [formData, setFormData] = useState({
-		pageId,
-		bank_name: "",
-		branch_name: "",
-		routing_number: "",
-		account_number: "",
-		swift_code: "",
-		checkbook_image: null,
+		ac_holder_bank_name: "",
+		ac_holder_branch_name_of_bank: "",
+		ac_holder_routing_number_of_bank: "",
+		ac_holder_account_number_of_bank: "",
+		ac_holder_swift_code_of_bank: "",
+		ac_holder_checkbook_image_of_bank: null,
 	});
+	console.log("formData: ", formData);
+
+	useEffect(() => {
+		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
+		const currentPageData = savedData.find((page) => page.id === pageId);
+		if (currentPageData) {
+			setFormData(currentPageData);
+		}
+	}, [pageId]);
 
 	const handleChange = (e) => {
 		const { name, value, type, files } = e.target;
-
 		if (type === "file") {
 			const file = files[0];
 			if (file) {
-				const reader = new FileReader();
-				reader.onloadend = () => {
-					setFormData((prevState) => ({
-						...prevState,
-						[name]: reader.result,
-					}));
-				};
-				reader.readAsDataURL(file);
+				if (file.size > 200 * 1024) {
+					new Compressor(file, {
+						quality: 0.8,
+						maxWidth: 1000,
+						maxHeight: 1000,
+						success(result) {
+							const reader = new FileReader();
+							reader.onloadend = () => {
+								setFormData((prevState) => ({
+									...prevState,
+									[name]: reader.result,
+								}));
+							};
+							reader.readAsDataURL(result);
+						},
+						error(err) {
+							console.error("Compression failed:", err);
+						},
+					});
+				} else {
+					const reader = new FileReader();
+					reader.onloadend = () => {
+						setFormData((prevState) => ({
+							...prevState,
+							[name]: reader.result,
+						}));
+					};
+					reader.readAsDataURL(file);
+				}
 			}
 		} else {
 			setFormData((prevState) => ({
@@ -44,23 +73,27 @@ const AccountBank = () => {
 		}
 	};
 
-	const handleSubmit = async (e) => {
+	useEffect(() => {
+		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
+		const currentPageData = savedData.find((page) => page.id === pageId);
+		if (currentPageData) {
+			setFormData(currentPageData);
+		}
+	}, [pageId]);
+
+	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// const url = "http://localhost:5000/api/v1/bo-account";
-		console.log(formData);
+		console.log("Selected values:", formData);
 
-		try {
-			const res = await axios.post(url, formData);
-			if (res) {
-				console.log(res);
+		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
+		const updatedData = savedData.filter((page) => page.id !== pageId);
 
-				// navigate to the next page after successful submission
-				navigate("/open-bo-account/nominees");
-			}
-		} catch (error) {
-			// Handle error
-		}
+		updatedData.push({ ...formData, id: pageId });
+		localStorage.setItem("formData", JSON.stringify(updatedData));
+
+		console.log("Form submitted. Updated data:", updatedData);
+		navigate("/open-bo-account/nominees");
 	};
 
 	// go back button
@@ -79,8 +112,8 @@ const AccountBank = () => {
 					<InputField
 						label="Bank Name"
 						type="text"
-						name="bank_name"
-						value={formData.bank_name}
+						name="ac_holder_bank_name"
+						value={formData.ac_holder_bank_name}
 						onChange={handleChange}
 						placeholder="Enter bank name"
 						required
@@ -89,8 +122,8 @@ const AccountBank = () => {
 					<InputField
 						label="Branch Name"
 						type="text"
-						name="branch_name"
-						value={formData.branch_name}
+						name="ac_holder_branch_name_of_bank"
+						value={formData.ac_holder_branch_name_of_bank}
 						onChange={handleChange}
 						placeholder="Enter branch name"
 						required
@@ -99,8 +132,8 @@ const AccountBank = () => {
 					<InputField
 						label="Routing Number"
 						type="text"
-						name="routing_number"
-						value={formData.routing_number}
+						name="ac_holder_routing_number_of_bank"
+						value={formData.ac_holder_routing_number_of_bank}
 						onChange={handleChange}
 						placeholder="Enter routing number"
 						required
@@ -109,8 +142,8 @@ const AccountBank = () => {
 					<InputField
 						label="Account Number"
 						type="text"
-						name="account_number"
-						value={formData.account_number}
+						name="ac_holder_account_number_of_bank"
+						value={formData.ac_holder_account_number_of_bank}
 						onChange={handleChange}
 						placeholder="Enter account number"
 						required
@@ -119,8 +152,8 @@ const AccountBank = () => {
 					<InputField
 						label="Swift Code"
 						type="text"
-						name="swift_code"
-						value={formData.swift_code}
+						name="ac_holder_swift_code_of_bank"
+						value={formData.ac_holder_swift_code_of_bank}
 						onChange={handleChange}
 						placeholder="Enter swift code"
 						required
@@ -131,16 +164,16 @@ const AccountBank = () => {
 						<div className="flex items-center justify-between gap-x-4">
 							<input
 								type="file"
-								name="checkbook_image"
+								name="ac_holder_checkbook_image_of_bank"
 								accept="image/*"
 								onChange={handleChange}
 								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 								required
 							/>
-							{formData.checkbook_image && (
+							{formData.ac_holder_checkbook_image_of_bank && (
 								<div className="h-10 w-28">
 									<img
-										src={formData.checkbook_image}
+										src={formData.ac_holder_checkbook_image_of_bank}
 										alt="Signature Preview"
 										className="object-cover w-full h-full rounded-md"
 									/>

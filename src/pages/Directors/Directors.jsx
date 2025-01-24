@@ -97,7 +97,7 @@ const Directors = () => {
 				/>
 			</div>
 			<div className="flex flex-col px-4 lg:mx-16 gap-y-28">
-				<h1 className="text-[2.63rem] mt-8 font-medium uppercase text-center w-full whitespace-nowrap text-black mb-8">
+				<h1 className="text-[1.63rem] lg:text-[2.63rem] mt-8 font-medium uppercase text-center w-full whitespace-nowrap text-black mb-8">
 					Board of Directors
 				</h1>
 				{data.map((tab) => (

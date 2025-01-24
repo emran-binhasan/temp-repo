@@ -9,12 +9,11 @@ const TypeComponents = () => {
 	const pageId = "DP & BO Type";
 
 	const [formData, setFormData] = useState({
-		pageId,
-		boCaption: "",
-		residency: "",
-		boType: "",
-		mobile: "",
+		phone_number: "",
 		email: "",
+		bo_caption: "",
+		residency: "",
+		bo_type: "",
 	});
 
 	const handleChange = (e) => {
@@ -25,23 +24,45 @@ const TypeComponents = () => {
 		}));
 	};
 
-	const handleSubmit = async (e) => {
+	useEffect(() => {
+		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
+		const currentPageData = savedData.find((page) => page.id === pageId);
+		if (currentPageData) {
+			setFormData(currentPageData);
+		}
+	}, [pageId]);
+
+	// const handleSubmit = async (e) => {
+	// 	e.preventDefault();
+
+	// 	// const url = "http://localhost:5000/api/v1/bo-account";
+	// 	console.log(formData);
+
+	// 	try {
+	// 		const res = await axios.post(url, formData);
+	// 		if (res) {
+	// 			console.log(res);
+
+	// 			// navigate to the next page after successful submission
+	// 			navigate("/open-bo-account/basic");
+	// 		}
+	// 	} catch (error) {
+	// 		// Handle error
+	// 	}
+	// };
+	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// const url = "http://localhost:5000/api/v1/bo-account";
-		console.log(formData);
+		console.log("Selected values:", formData);
 
-		try {
-			const res = await axios.post(url, formData);
-			if (res) {
-				console.log(res);
+		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
+		const updatedData = savedData.filter((page) => page.id !== pageId);
 
-				// navigate to the next page after successful submission
-				navigate("/open-bo-account/nominees");
-			}
-		} catch (error) {
-			// Handle error
-		}
+		updatedData.push({ ...formData, id: pageId });
+		localStorage.setItem("formData", JSON.stringify(updatedData));
+
+		console.log("Form submitted. Updated data:", updatedData);
+		navigate("/open-bo-account/basic");
 	};
 
 	const boOptions = [
@@ -69,8 +90,8 @@ const TypeComponents = () => {
 				<InputField
 					label="Mobile Number"
 					type="text"
-					name="mobile"
-					value={formData.mobile}
+					name="phone_number"
+					value={formData.phone_number}
 					onChange={handleChange}
 					placeholder="01xxxxxxxxx"
 				/>
@@ -87,9 +108,9 @@ const TypeComponents = () => {
 				{/* BO Caption */}
 				<RadioGroup
 					label="BO Caption"
-					name="boCaption"
+					name="bo_caption"
 					options={boOptions}
-					value={formData.boCaption}
+					value={formData.bo_caption}
 					onChange={handleChange}
 					required={true}
 					classStyle="space-y-2"
@@ -109,9 +130,9 @@ const TypeComponents = () => {
 				{/* BO Type */}
 				<RadioGroup
 					label="BO Type"
-					name="boType"
+					name="bo_type"
 					options={boTypeOptions}
-					value={formData.boType}
+					value={formData.bo_type}
 					onChange={handleChange}
 					required={true}
 					classStyle="space-y-2"

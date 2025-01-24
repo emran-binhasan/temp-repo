@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useScrollToTop from "../../../utils/useScrollToTop";
 import InputField from "../../../utils/InputField";
 import RadioGroup from "../../../utils/RadioGroup";
@@ -9,101 +9,140 @@ import FloatingButton from "../../../utils/FloatingButton";
 import { FaAsterisk } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa6";
 import { IoIosArrowBack } from "react-icons/io";
-
-import axios from "axios";
+import Compressor from "compressorjs";
 
 const AccountBasic = () => {
 	const navigate = useNavigate();
 	const [isSameAddress, setIsSameAddress] = useState(false);
 	const pageId = "Basic Information";
 	const [formData, setFormData] = useState({
-		pageId,
-		applicant_name: "",
-		mother_name: "",
-		father_name: "",
-		spouse_name: "",
-		date_of_birth: "",
-		gender: "",
-		signature_image: null,
-		applicant_image: null,
-		occupation: "",
-		TIN: "",
-		citizen_of_bangladesh: "",
-		application_holder_NID_number: "",
-		NID_front_image: null,
-		NID_back_image: null,
+		ac_holder_name: "",
+		ac_holder_fathers_name: "",
+		ac_holder_mothers_name: "",
+		ac_holder_spouses_name: "",
+		ac_holder_date_of_birth: "",
+		ac_holder_gender: "",
+		ac_holder_signature_image: null,
+		ac_holder_image: null,
+		ac_holder_occupation: "",
+		ac_holder_TIN: "",
+		ac_holder_NID_number: "",
+		ac_holder_nid_front: null,
+		ac_holder_nid_back: null,
 
-		present_country: "",
-		present_city: "",
-		present_state: "",
-		present_postal_code: "",
-		present_address: "",
+		ac_holder_present_country: "",
+		ac_holder_present_city: "",
+		ac_holder_present_state: "",
+		ac_holder_present_postal_code: "",
+		ac_holder_present_address_line: "",
 
-		permanent_country: "",
-		permanent_city: "",
-		permanent_state: "",
-		permanent_postal_code: "",
-		permanent_address: "",
+		ac_holder_permanent_country: "",
+		ac_holder_permanent_city: "",
+		ac_holder_permanent_state: "",
+		ac_holder_permanent_postal_code: "",
+		ac_holder_permanent_address_line: "",
 
-		passport_number: "",
-		passport_issue_date: "",
-		passport_expiry_date: "",
-		issue_place_of_passport: "",
+		ac_holder_passport_number: "",
+		ac_holder_issue_date_of_passport: "",
+		ac_holder_expiry_date_of_passport: "",
+		ac_holder_issue_place_of_passport: "",
 	});
 	useScrollToTop();
 
+	// const handleChange = (e) => {
+	// 	const { name, value, type, files } = e.target;
+
+	// 	if (type === "file") {
+	// 		const file = files[0];
+	// 		if (file) {
+	// 			const reader = new FileReader();
+	// 			reader.onloadend = () => {
+	// 				setFormData((prevState) => ({
+	// 					...prevState,
+	// 					[name]: reader.result,
+	// 				}));
+	// 			};
+	// 			reader.readAsDataURL(file);
+	// 		}
+	// 	} else {
+	// 		setFormData((prevState) => ({
+	// 			...prevState,
+	// 			[name]: value,
+	// 		}));
+	// 	}
+	// };
 	const handleChange = (e) => {
 		const { name, value, type, files } = e.target;
 
 		if (type === "file") {
 			const file = files[0];
 			if (file) {
-				const reader = new FileReader();
-				reader.onloadend = () => {
-					setFormData((prevState) => ({
-						...prevState,
-						[name]: reader.result,
-					}));
-				};
-				reader.readAsDataURL(file);
+				// Check if the file is over the size limit
+				if (file.size > 200 * 1024) {
+					new Compressor(file, {
+						quality: 0.8, // You can adjust quality here
+						maxWidth: 1000, // You can adjust the max width
+						maxHeight: 1000, // You can adjust the max height
+						success(result) {
+							// Convert the compressed file to base64
+							const reader = new FileReader();
+							reader.onloadend = () => {
+								setFormData((prevState) => ({
+									...prevState,
+									[name]: reader.result, // Set the compressed image data
+								}));
+							};
+							reader.readAsDataURL(result);
+						},
+						error(err) {
+							console.error("Compression failed:", err);
+						},
+					});
+				} else {
+					// If the file is small enough, save it directly
+					const reader = new FileReader();
+					reader.onloadend = () => {
+						setFormData((prevState) => ({
+							...prevState,
+							[name]: reader.result,
+						}));
+					};
+					reader.readAsDataURL(file);
+				}
 			}
-		} else {
-			setFormData((prevState) => ({
-				...prevState,
-				[name]: value,
-			}));
 		}
 	};
 
 	const handleCopyPresentAddress = () => {
 		setFormData((prevState) => ({
 			...prevState,
-			permanent_country: prevState.present_country,
-			permanent_city: prevState.present_city,
-			permanent_state: prevState.present_state,
-			permanent_postal_code: prevState.present_postal_code,
-			permanent_address: prevState.present_address,
+			ac_holder_permanent_country: prevState.ac_holder_present_country,
+			ac_holder_permanent_city: prevState.ac_holder_present_city,
+			ac_holder_permanent_state: prevState.ac_holder_present_state,
+			ac_holder_permanent_postal_code: prevState.ac_holder_present_postal_code,
+			ac_holder_permanent_address_line: prevState.ac_holder_present_address_line,
 		}));
 		setIsSameAddress(true);
 	};
 
-	const handleSubmit = async (e) => {
+	useEffect(() => {
+		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
+		const currentPageData = savedData.find((page) => page.id === pageId);
+		if (currentPageData) {
+			setFormData(currentPageData);
+		}
+	}, [pageId]);
+
+	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// const url = "http://localhost:5000/api/v1/bo-account";
-		console.log(formData);
+		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
+		const updatedData = savedData.filter((page) => page.id !== pageId);
 
-		try {
-			const res = await axios.post(url, formData);
-			if (res) {
-				console.log(res);
+		updatedData.push({ ...formData, id: pageId });
+		localStorage.setItem("formData", JSON.stringify(updatedData));
 
-				// navigate to the next page after successful submission
-				navigate("/open-bo-account/bank");
-			}
-		} catch (error) {
-			// Handle error
-		}
+		navigate("/open-bo-account/bank");
 	};
 
 	// go back button
@@ -125,18 +164,19 @@ const AccountBasic = () => {
 					<InputField
 						label="Your Name (As per NID)"
 						type="text"
-						name="applicant_name"
-						value={formData.applicant_name}
+						name="ac_holder_name"
+						value={formData.ac_holder_name}
 						onChange={handleChange}
 						placeholder="Enter your name"
 						required
+						defaultValue={formData.ac_holder_name}
 					/>
 					{/* father name */}
 					<InputField
 						label="Father's Name"
 						type="text"
-						name="father_name"
-						value={formData.father_name}
+						name="ac_holder_fathers_name"
+						value={formData.ac_holder_fathers_name}
 						onChange={handleChange}
 						placeholder="Enter your father's name"
 						required
@@ -145,8 +185,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Mother's Name"
 						type="text"
-						name="mother_name"
-						value={formData.mother_name}
+						name="ac_holder_mothers_name"
+						value={formData.ac_holder_mothers_name}
 						onChange={handleChange}
 						placeholder="Enter your mother's name"
 						required
@@ -155,8 +195,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Spouse's Name"
 						type="text"
-						name="spouse_name"
-						value={formData.spouse_name}
+						name="ac_holder_spouses_name"
+						value={formData.ac_holder_spouses_name}
 						onChange={handleChange}
 						placeholder="Enter your spouse's name"
 						required
@@ -165,17 +205,17 @@ const AccountBasic = () => {
 					<InputField
 						label="Date of Birth"
 						type="date"
-						name="date_of_birth"
-						value={formData.date_of_birth}
+						name="ac_holder_date_of_birth"
+						value={formData.ac_holder_date_of_birth}
 						onChange={handleChange}
 						placeholder="Enter your date of birth"
 						required
 					/>
-					{/* gender */}
+					{/* ac_holder_gender */}
 					<RadioGroup
 						label="Gender"
-						name="gender"
-						value={formData.gender}
+						name="ac_holder_gender"
+						value={formData.ac_holder_gender}
 						onChange={handleChange}
 						options={[
 							{ label: "Male", value: "male" },
@@ -194,16 +234,16 @@ const AccountBasic = () => {
 						<div className="flex items-center justify-between gap-x-4">
 							<input
 								type="file"
-								name="signature_image"
+								name="ac_holder_signature_image"
 								accept="image/*"
 								onChange={handleChange}
 								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 								required
 							/>
-							{formData.signature_image && (
+							{formData.ac_holder_signature_image && (
 								<div className="h-10 w-28">
 									<img
-										src={formData.signature_image}
+										src={formData.ac_holder_signature_image}
 										alt="Signature Preview"
 										className="object-cover w-full h-full rounded-md"
 									/>
@@ -220,16 +260,16 @@ const AccountBasic = () => {
 						<div className="flex items-center justify-between gap-x-4">
 							<input
 								type="file"
-								name="applicant_image"
+								name="ac_holder_image"
 								accept="image/*"
 								onChange={handleChange}
 								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 								required
 							/>
-							{formData.applicant_image && (
+							{formData.ac_holder_image && (
 								<div className="h-10 w-28">
 									<img
-										src={formData.applicant_image}
+										src={formData.ac_holder_image}
 										alt="Signature Preview"
 										className="object-cover w-full h-full rounded-md"
 									/>
@@ -241,8 +281,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Occupation"
 						type="text"
-						name="occupation"
-						value={formData.occupation}
+						name="ac_holder_occupation"
+						value={formData.ac_holder_occupation}
 						onChange={handleChange}
 						placeholder="Enter occupation"
 					/>
@@ -250,29 +290,17 @@ const AccountBasic = () => {
 					<InputField
 						label="TIN"
 						type="text"
-						name="TIN"
-						value={formData.TIN}
+						name="ac_holder_TIN"
+						value={formData.ac_holder_TIN}
 						onChange={handleChange}
 						placeholder="Enter TIN"
-					/>
-					{/* gender */}
-					<RadioGroup
-						label="Citizen of Bangladesh"
-						name="citizen_of_bangladesh"
-						value={formData.citizen_of_bangladesh}
-						onChange={handleChange}
-						options={[
-							{ label: "Yes", value: "yes" },
-							{ label: "No", value: "no" },
-						]}
-						classStyle="flex justify-between items-center w-fit m-0"
 					/>
 					{/* date of birth */}
 					<InputField
 						label="Application Holder NID No.(optional for NRB)"
 						type="text"
-						name="application_holder_NID_number"
-						value={formData.application_holder_NID_number}
+						name="ac_holder_NID_number"
+						value={formData.ac_holder_NID_number}
 						onChange={handleChange}
 						placeholder="Enter application holder NID number"
 					/>
@@ -282,15 +310,15 @@ const AccountBasic = () => {
 						<div className="flex items-center justify-between gap-x-4">
 							<input
 								type="file"
-								name="NID_front_image"
+								name="ac_holder_nid_front"
 								accept="image/*"
 								onChange={handleChange}
 								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 							/>
-							{formData.NID_front_image && (
+							{formData.ac_holder_nid_front && (
 								<div className="h-10 w-28">
 									<img
-										src={formData.NID_front_image}
+										src={formData.ac_holder_nid_front}
 										alt="Signature Preview"
 										className="object-cover w-full h-full rounded-md"
 									/>
@@ -304,15 +332,15 @@ const AccountBasic = () => {
 						<div className="flex items-center justify-between gap-x-4">
 							<input
 								type="file"
-								name="NID_back_image"
+								name="ac_holder_nid_back"
 								accept="image/*"
 								onChange={handleChange}
 								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 							/>
-							{formData.NID_back_image && (
+							{formData.ac_holder_nid_back && (
 								<div className="h-10 w-28">
 									<img
-										src={formData.NID_back_image}
+										src={formData.ac_holder_nid_back}
 										alt="Signature Preview"
 										className="object-cover w-full h-full rounded-md"
 									/>
@@ -330,8 +358,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Present Country"
 						type="text"
-						name="present_country"
-						value={formData.present_country}
+						name="ac_holder_present_country"
+						value={formData.ac_holder_present_country}
 						onChange={handleChange}
 						placeholder="Enter present country"
 						required
@@ -340,8 +368,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Present City"
 						type="text"
-						name="present_city"
-						value={formData.present_city}
+						name="ac_holder_present_city"
+						value={formData.ac_holder_present_city}
 						onChange={handleChange}
 						placeholder="Enter present city"
 						required
@@ -350,8 +378,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Present State"
 						type="text"
-						name="present_state"
-						value={formData.present_state}
+						name="ac_holder_present_state"
+						value={formData.ac_holder_present_state}
 						onChange={handleChange}
 						placeholder="Enter present state"
 						required
@@ -360,8 +388,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Present Postal Code"
 						type="text"
-						name="present_postal_code"
-						value={formData.present_postal_code}
+						name="ac_holder_present_postal_code"
+						value={formData.ac_holder_present_postal_code}
 						onChange={handleChange}
 						placeholder="Enter present postal code"
 						required
@@ -370,8 +398,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Present Address"
 						type="text"
-						name="present_address"
-						value={formData.present_address}
+						name="ac_holder_present_address_line"
+						value={formData.ac_holder_present_address_line}
 						onChange={handleChange}
 						placeholder="Enter address"
 						required
@@ -402,8 +430,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Permanent Country"
 						type="text"
-						name="permanent_country"
-						value={formData.permanent_country}
+						name="ac_holder_permanent_country"
+						value={formData.ac_holder_permanent_country}
 						onChange={handleChange}
 						placeholder="Enter permanent country"
 						required
@@ -412,8 +440,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Permanent City"
 						type="text"
-						name="permanent_city"
-						value={formData.permanent_city}
+						name="ac_holder_permanent_city"
+						value={formData.ac_holder_permanent_city}
 						onChange={handleChange}
 						placeholder="Enter permanent city"
 						required
@@ -422,8 +450,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Permanent State"
 						type="text"
-						name="permanent_state"
-						value={formData.permanent_state}
+						name="ac_holder_permanent_state"
+						value={formData.ac_holder_permanent_state}
 						onChange={handleChange}
 						placeholder="Enter permanent state"
 						required
@@ -432,8 +460,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Permanent Postal Code"
 						type="text"
-						name="permanent_postal_code"
-						value={formData.permanent_postal_code}
+						name="ac_holder_permanent_postal_code"
+						value={formData.ac_holder_permanent_postal_code}
 						onChange={handleChange}
 						placeholder="Enter permanent postal code"
 						required
@@ -442,8 +470,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Permanent Address"
 						type="text"
-						name="permanent_address"
-						value={formData.permanent_address}
+						name="ac_holder_permanent_address_line"
+						value={formData.ac_holder_permanent_address_line}
 						onChange={handleChange}
 						placeholder="Enter address"
 						required
@@ -458,8 +486,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Passport Number"
 						type="text"
-						name="passport_number"
-						value={formData.passport_number}
+						name="ac_holder_passport_number"
+						value={formData.ac_holder_passport_number}
 						onChange={handleChange}
 						placeholder="Enter passport number"
 					/>
@@ -467,8 +495,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Issue Place of Passport"
 						type="text"
-						name="issue_place_of_passport"
-						value={formData.issue_place_of_passport}
+						name="ac_holder_issue_place_of_passport"
+						value={formData.ac_holder_issue_place_of_passport}
 						onChange={handleChange}
 						placeholder="Enter issue place of passport"
 					/>
@@ -476,8 +504,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Issue Date of Passport"
 						type="date"
-						name="passport_issue_date"
-						value={formData.passport_issue_date}
+						name="ac_holder_issue_date_of_passport"
+						value={formData.ac_holder_issue_date_of_passport}
 						onChange={handleChange}
 						placeholder="Enter issue date of passport"
 					/>
@@ -485,8 +513,8 @@ const AccountBasic = () => {
 					<InputField
 						label="Expiry Date of Passport"
 						type="date"
-						name="passport_expiry_date"
-						value={formData.passport_expiry_date}
+						name="ac_holder_expiry_date_of_passport"
+						value={formData.ac_holder_expiry_date_of_passport}
 						onChange={handleChange}
 						placeholder="Enter expiry date of passport"
 					/>

@@ -4,6 +4,18 @@ import useScroll from "../../utils/useScroll";
 import banner from "../../assets/images/banners/management.jpg";
 import profile from "../../assets/images/banners/management-team.png";
 import useTitle from "../../utils/useTitle";
+import Markdown from "../../utils/Markdown";
+
+const data = [
+	{
+		id: 1,
+		image: profile,
+		des: `# Muhammad Moniruzzaman Miah\n
+		# CEO
+		A. K. Khan Securities Ltd.
+		`,
+	},
+];
 
 const Management = () => {
 	const isScrolled = useScroll("top-navbar");
@@ -20,17 +32,22 @@ const Management = () => {
                         ${isScrolled ? "scale-105" : "scale-100"}`}
 				/>
 			</div>
-			<h1 className="text-[2.63rem] mt-8 font-medium uppercase text-center w-full whitespace-nowrap text-black mb-8">
-				Management Team
-			</h1>
-			<div>
-				<img
-					src={profile}
-					alt="Muhammad Moniruzzaman Miah"
-				/>
-				<p>Muhammad Moniruzzaman Miah</p>
-				<p>CEO</p>
-				<p>A. K. Khan Securities Ltd.</p>
+			<div className="flex flex-col px-4 lg:mx-16 gap-y-28">
+				<h1 className="text-[1.63rem] lg:text-[2.63rem] mt-8 font-medium uppercase text-center w-full whitespace-nowrap text-black mb-8">
+					Management Team
+				</h1>
+				{data.map((tab) => (
+					<div
+						key={tab.id}
+						className="flex flex-col lg:flex-row gap-x-16 gap-y-4"
+					>
+						<img
+							src={tab.image}
+							className="h-auto block lg:mx-0 mx-auto w-auto max-w-[200px] max-h-[200px] object-cover"
+						/>
+						<Markdown content={tab.des} />
+					</div>
+				))}
 			</div>
 		</div>
 	);

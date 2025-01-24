@@ -1,34 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useScrollToTop from "../../../utils/useScrollToTop";
 import InputField from "../../../utils/InputField";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../utils/Button";
 import FloatingButton from "../../../utils/FloatingButton";
 import { IoIosArrowBack } from "react-icons/io";
-import axios from "axios";
 import RadioGroup from "../../../utils/RadioGroup";
+import Compressor from "compressorjs";
 
 const AccountNominees = () => {
 	const navigate = useNavigate();
 	const pageId = "Nominees";
 	const [showSecondNominee, setShowSecondNominee] = useState(false);
 	const [formData, setFormData] = useState({
-		pageId,
-		nominee_name: "",
-		passport_number: "",
-		country: "",
-		mobile_number: "",
-		city: "",
-		date_of_birth: "",
-		post_code: "",
-		percentage: "",
-		state: "",
-		relation_with_client: "",
-		present_address: "",
-		sex: "",
-		NID_front_image: null,
-		NID_back_image: null,
-
 		nominee_name_1: "",
 		passport_number_1: "",
 		country_1: "",
@@ -41,8 +25,23 @@ const AccountNominees = () => {
 		relation_with_client_1: "",
 		present_address_1: "",
 		sex_1: "",
-		NID_front_image_1: null,
-		NID_back_image_1: null,
+		nid_front_image_1: null,
+		nid_back_image_1: null,
+
+		nominee_name_2: "",
+		passport_number_2: "",
+		country_2: "",
+		mobile_number_2: "",
+		city_2: "",
+		date_of_birth_2: "",
+		post_code_2: "",
+		percentage_2: "",
+		state_2: "",
+		relation_with_client_2: "",
+		present_address_2: "",
+		sex_2: "",
+		nid_front_image_2: null,
+		nid_back_image_2: null,
 	});
 	useScrollToTop();
 
@@ -53,8 +52,8 @@ const AccountNominees = () => {
 		if (showSecondNominee) {
 			setFormData((prevState) => ({
 				...prevState,
-				nominee_name_1: "",
-				NID_back_image_1: null,
+				nominee_name_2: "",
+				nid_back_image_2: null,
 			}));
 		}
 	};
@@ -65,51 +64,77 @@ const AccountNominees = () => {
 		if (type === "file") {
 			const file = files[0];
 			if (file) {
-				const reader = new FileReader();
-				reader.onloadend = () => {
-					setFormData((prevState) => ({
-						...prevState,
-						[name]: reader.result,
-					}));
-				};
-				reader.readAsDataURL(file);
+				// Check if the file is over the size limit
+				if (file.size > 200 * 1024) {
+					new Compressor(file, {
+						quality: 0.8, // You can adjust quality here
+						maxWidth: 1000, // You can adjust the max width
+						maxHeight: 1000, // You can adjust the max height
+						success(result) {
+							// Convert the compressed file to base64
+							const reader = new FileReader();
+							reader.onloadend = () => {
+								setFormData((prevState) => ({
+									...prevState,
+									[name]: reader.result, // Set the compressed image data
+								}));
+							};
+							reader.readAsDataURL(result);
+						},
+						error(err) {
+							console.error("Compression failed:", err);
+						},
+					});
+				} else {
+					// If the file is small enough, save it directly
+					const reader = new FileReader();
+					reader.onloadend = () => {
+						setFormData((prevState) => ({
+							...prevState,
+							[name]: reader.result,
+						}));
+					};
+					reader.readAsDataURL(file);
+				}
 			}
-		} else {
-			setFormData((prevState) => ({
-				...prevState,
-				[name]: value,
-			}));
 		}
 	};
 
-	const handleSubmit = async (e) => {
+	useEffect(() => {
+		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
+		const currentPageData = savedData.find((page) => page.id === pageId);
+		if (currentPageData) {
+			setFormData(currentPageData);
+		}
+	}, [pageId]);
+
+	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		// Filter out optional fields if all values are empty for the second nominee
-		const optionalFields = Object.keys(formData).filter((key) => key.endsWith("_1"));
-
+		const optionalFields = Object.keys(formData).filter((key) => key.endsWith("_2"));
 		const hasSecondNomineeData = optionalFields.some((field) => formData[field]);
 
+		// Create a filtered version of the formData
 		const filteredData = { ...formData };
-
 		if (!hasSecondNomineeData) {
 			optionalFields.forEach((field) => delete filteredData[field]);
 		}
 
-		// const url = "http://localhost:5000/api/v1/bo-account";
-		console.log(formData);
+		console.log("Selected values:", filteredData);
 
-		try {
-			const res = await axios.post(url, formData);
-			if (res) {
-				console.log(res);
+		// Retrieve existing data from localStorage or initialize an empty array
+		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
 
-				// navigate to the next page after successful submission
-				navigate("/open-bo-account/complete");
-			}
-		} catch (error) {
-			console.log("error: ", error);
-		}
+		// Filter out the current page's data by pageId and update it with the new filteredData
+		const updatedData = savedData.filter((page) => page.id !== pageId);
+		updatedData.push({ ...filteredData, id: pageId });
+
+		// Save the updated data back to localStorage
+		localStorage.setItem("formData", JSON.stringify(updatedData));
+
+		console.log("Form submitted. Updated data:", updatedData);
+		navigate("/open-bo-account/complete");
 	};
 
 	// go back button
@@ -132,8 +157,8 @@ const AccountNominees = () => {
 					<InputField
 						onChange={handleChange}
 						label="Nominee Name"
-						value={formData.nominee_name}
-						name="nominee_name"
+						value={formData.nominee_name_1}
+						name="nominee_name_1"
 						placeholder="Nominee Name"
 						type="text"
 						required
@@ -142,8 +167,8 @@ const AccountNominees = () => {
 					<InputField
 						onChange={handleChange}
 						label="Passport Number"
-						value={formData.passport_number}
-						name="passport_number"
+						value={formData.passport_number_1}
+						name="passport_number_1"
 						placeholder="Passport Number"
 						type="text"
 						required
@@ -152,8 +177,8 @@ const AccountNominees = () => {
 					<InputField
 						onChange={handleChange}
 						label="Country"
-						value={formData.country}
-						name="country"
+						value={formData.country_1}
+						name="country_1"
 						placeholder="Country"
 						type="text"
 						required
@@ -162,8 +187,8 @@ const AccountNominees = () => {
 					<InputField
 						onChange={handleChange}
 						label="Mobile Number"
-						value={formData.mobile_number}
-						name="mobile_number"
+						value={formData.mobile_number_1}
+						name="mobile_number_1"
 						placeholder="Mobile Number"
 						type="text"
 						required
@@ -172,8 +197,8 @@ const AccountNominees = () => {
 					<InputField
 						onChange={handleChange}
 						label="City"
-						value={formData.city}
-						name="city"
+						value={formData.city_1}
+						name="city_1"
 						placeholder="City"
 						type="text"
 						required
@@ -182,8 +207,8 @@ const AccountNominees = () => {
 					<InputField
 						onChange={handleChange}
 						label="Date of Birth"
-						value={formData.date_of_birth}
-						name="date_of_birth"
+						value={formData.date_of_birth_1}
+						name="date_of_birth_1"
 						placeholder="Date of Birth"
 						type="date"
 						required
@@ -192,8 +217,8 @@ const AccountNominees = () => {
 					<InputField
 						onChange={handleChange}
 						label="Post Code"
-						value={formData.post_code}
-						name="post_code"
+						value={formData.post_code_1}
+						name="post_code_1"
 						placeholder="Post Code"
 						type="text"
 						required
@@ -202,8 +227,8 @@ const AccountNominees = () => {
 					<InputField
 						onChange={handleChange}
 						label="Percentage"
-						value={formData.percentage}
-						name="percentage"
+						value={formData.percentage_1}
+						name="percentage_1"
 						placeholder="Percentage"
 						type="text"
 						required
@@ -212,8 +237,8 @@ const AccountNominees = () => {
 					<InputField
 						onChange={handleChange}
 						label="State"
-						value={formData.state}
-						name="state"
+						value={formData.state_1}
+						name="state_1"
 						placeholder="State"
 						type="text"
 						required
@@ -222,8 +247,8 @@ const AccountNominees = () => {
 					<InputField
 						onChange={handleChange}
 						label="Relation with Client"
-						value={formData.relation_with_client}
-						name="relation_with_client"
+						value={formData.relation_with_client_1}
+						name="relation_with_client_1"
 						placeholder="Relation with Client"
 						type="text"
 						required
@@ -232,8 +257,8 @@ const AccountNominees = () => {
 					<InputField
 						onChange={handleChange}
 						label="Present Address"
-						value={formData.present_address}
-						name="present_address"
+						value={formData.present_address_1}
+						name="present_address_1"
 						placeholder="Present Address"
 						type="text"
 						required
@@ -241,8 +266,8 @@ const AccountNominees = () => {
 					{/* nominees Sex */}
 					<RadioGroup
 						label="Sex"
-						name="sex"
-						value={formData.sex}
+						name="sex_1"
+						value={formData.sex_1}
 						onChange={handleChange}
 						options={[
 							{ label: "Male", value: "male" },
@@ -252,21 +277,21 @@ const AccountNominees = () => {
 						classStyle="flex justify-between items-center w-fit m-0"
 						required
 					/>
-					{/* NID_front image */}
+					{/* nid_front image */}
 					<div className="space-y-1 md:space-y-2">
 						<label className="block text-xs font-semibold md:text-sm">NID Front image</label>
 						<div className="flex items-center justify-between gap-x-4">
 							<input
 								type="file"
-								name="NID_front_image"
+								name="nid_front_image_1"
 								accept="image/*"
 								onChange={handleChange}
 								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 							/>
-							{formData.NID_front_image && (
+							{formData.nid_front_image_1 && (
 								<div className="h-10 w-28">
 									<img
-										src={formData.NID_front_image}
+										src={formData.nid_front_image_1}
 										alt="Signature Preview"
 										className="object-cover w-full h-full rounded-md"
 									/>
@@ -274,21 +299,21 @@ const AccountNominees = () => {
 							)}
 						</div>
 					</div>
-					{/* NID_back image */}
+					{/* nid_back image */}
 					<div className="space-y-1 md:space-y-2">
 						<label className="block text-xs font-semibold md:text-sm">NID Back image</label>
 						<div className="flex items-center justify-between gap-x-4">
 							<input
 								type="file"
-								name="NID_back_image"
+								name="nid_back_image_1"
 								accept="image/*"
 								onChange={handleChange}
 								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 							/>
-							{formData.NID_back_image && (
+							{formData.nid_back_image_1 && (
 								<div className="h-10 w-28">
 									<img
-										src={formData.NID_back_image}
+										src={formData.nid_back_image_1}
 										alt="Signature Preview"
 										className="object-cover w-full h-full rounded-md"
 									/>
@@ -308,8 +333,8 @@ const AccountNominees = () => {
 						<InputField
 							onChange={handleChange}
 							label="Nominee Name"
-							value={formData.nominee_name_1}
-							name="nominee_name"
+							value={formData.nominee_name_2}
+							name="nominee_name_2"
 							placeholder="Nominee Name"
 							type="text"
 							required
@@ -318,7 +343,7 @@ const AccountNominees = () => {
 						<InputField
 							onChange={handleChange}
 							label="Passport Number"
-							value={formData.passport_number_1}
+							value={formData.passport_number_2}
 							name="passport_number"
 							placeholder="Passport Number"
 							type="text"
@@ -328,7 +353,7 @@ const AccountNominees = () => {
 						<InputField
 							onChange={handleChange}
 							label="Country"
-							value={formData.country_1}
+							value={formData.country_2}
 							name="country"
 							placeholder="Country"
 							type="text"
@@ -338,7 +363,7 @@ const AccountNominees = () => {
 						<InputField
 							onChange={handleChange}
 							label="Mobile Number"
-							value={formData.mobile_number_1}
+							value={formData.mobile_number_2}
 							name="mobile_number"
 							placeholder="Mobile Number"
 							type="text"
@@ -348,7 +373,7 @@ const AccountNominees = () => {
 						<InputField
 							onChange={handleChange}
 							label="City"
-							value={formData.city_1}
+							value={formData.city_2}
 							name="city"
 							placeholder="City"
 							type="text"
@@ -358,7 +383,7 @@ const AccountNominees = () => {
 						<InputField
 							onChange={handleChange}
 							label="Date of Birth"
-							value={formData.date_of_birth_1}
+							value={formData.date_of_birth_2}
 							name="date_of_birth"
 							placeholder="Date of Birth"
 							type="date"
@@ -368,7 +393,7 @@ const AccountNominees = () => {
 						<InputField
 							onChange={handleChange}
 							label="Post Code"
-							value={formData.post_code_1}
+							value={formData.post_code_2}
 							name="post_code"
 							placeholder="Post Code"
 							type="text"
@@ -378,7 +403,7 @@ const AccountNominees = () => {
 						<InputField
 							onChange={handleChange}
 							label="Percentage"
-							value={formData.percentage_1}
+							value={formData.percentage_2}
 							name="percentage"
 							placeholder="Percentage"
 							type="text"
@@ -388,7 +413,7 @@ const AccountNominees = () => {
 						<InputField
 							onChange={handleChange}
 							label="State"
-							value={formData.state_1}
+							value={formData.state_2}
 							name="state"
 							placeholder="State"
 							type="text"
@@ -398,7 +423,7 @@ const AccountNominees = () => {
 						<InputField
 							onChange={handleChange}
 							label="Relation with Client"
-							value={formData.relation_with_client_1}
+							value={formData.relation_with_client_2}
 							name="relation_with_client"
 							placeholder="Relation with Client"
 							type="text"
@@ -408,7 +433,7 @@ const AccountNominees = () => {
 						<InputField
 							onChange={handleChange}
 							label="Present Address"
-							value={formData.present_address_1}
+							value={formData.present_address_2}
 							name="present_address"
 							placeholder="Present Address"
 							type="text"
@@ -417,8 +442,8 @@ const AccountNominees = () => {
 						{/* nominees Sex */}
 						<RadioGroup
 							label="Sex"
-							name="sex_1"
-							value={formData.sex_1}
+							name="sex_2"
+							value={formData.sex_2}
 							onChange={handleChange}
 							options={[
 								{ label: "Male", value: "male" },
@@ -428,21 +453,21 @@ const AccountNominees = () => {
 							classStyle="flex justify-between items-center w-fit m-0"
 							required
 						/>
-						{/* NID_front image */}
+						{/* nid_front image */}
 						<div className="space-y-1 md:space-y-2">
 							<label className="block text-xs font-semibold md:text-sm">NID Front image</label>
 							<div className="flex items-center justify-between gap-x-4">
 								<input
 									type="file"
-									name="NID_front_image_1"
+									name="nid_front_image_2"
 									accept="image/*"
 									onChange={handleChange}
 									className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 								/>
-								{formData.NID_front_image && (
+								{formData.nid_front_image && (
 									<div className="h-10 w-28">
 										<img
-											src={formData.NID_front_image}
+											src={formData.nid_front_image}
 											alt="Signature Preview"
 											className="object-cover w-full h-full rounded-md"
 										/>
@@ -450,21 +475,21 @@ const AccountNominees = () => {
 								)}
 							</div>
 						</div>
-						{/* NID_back image */}
+						{/* nid_back image */}
 						<div className="space-y-1 md:space-y-2">
 							<label className="block text-xs font-semibold md:text-sm">NID Back image</label>
 							<div className="flex items-center justify-between gap-x-4">
 								<input
 									type="file"
-									name="NID_back_image_1"
+									name="nid_back_image_2"
 									accept="image/*"
 									onChange={handleChange}
 									className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 								/>
-								{formData.NID_back_image && (
+								{formData.nid_back_image && (
 									<div className="h-10 w-28">
 										<img
-											src={formData.NID_back_image}
+											src={formData.nid_back_image}
 											alt="Signature Preview"
 											className="object-cover w-full h-full rounded-md"
 										/>

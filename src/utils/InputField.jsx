@@ -16,11 +16,12 @@ const InputField = ({ onChange, label, value, name, placeholder, type, required 
 					type={type}
 					id={name}
 					name={name}
-					value={value}
+					defaultValue={value}
 					onChange={onChange}
 					placeholder={placeholder}
 					className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 					required={required}
+					// defaultValue={defaultValue}
 				/>
 			</div>
 		</>

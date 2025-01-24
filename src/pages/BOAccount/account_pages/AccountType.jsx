@@ -17,7 +17,7 @@ const AccountType = () => {
 
 	return (
 		<div className="text-dhusor">
-			<div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6">
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-14">
 				<div className="flex flex-col justify-between">
 					<div className="bg-[#CFE8FF] px-6 py-10 rounded-xl">
 						<h4 className="mb-4 text-base font-medium">

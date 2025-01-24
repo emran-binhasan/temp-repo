@@ -10,11 +10,13 @@ const Home = () => {
 	useTitle("Home");
 
 	return (
-		<div>
+		<div className="flex flex-col gap-y-0">
 			<Slider />
 			<TabSec />
 
-			<ThirdSec />
+			<div className="mt-16">
+				<ThirdSec />
+			</div>
 
 			<div>
 				<Posts />
