@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.oswald-font{
+	font-family: "Oswald", serif;
+}
+
+body {
+	font-family: "Be Vietnam Pro", serif;
+}
+
+body {
+	background-color: rgb(67, 62, 63);
+}
+
+.active {
+	border-bottom: 2px solid white;
+}
+
+.your-image-class {
+	filter: invert(80%) sepia(100%) saturate(10) hue-rotate(180deg) brightness(100%) contrast(100%);
+}
+
+.links_f,
+.links {
+	position: relative;
+	text-decoration: none;
+}
+
+.links::before {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 1px;
+	border-radius: 0px;
+	background-color: #ffffff;
+	bottom: -0.5px;
+	left: 0;
+	transform-origin: right;
+	transform: scaleX(0);
+	transition: transform 0.5s ease-out;
+}
+.links_f::before {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 1px;
+	border-radius: 0px;
+	background-color: #171631;
+	bottom: -0.5px;
+	left: 0;
+	transform-origin: right;
+	transform: scaleX(0);
+	transition: transform 0.5s ease-out;
+}
+
+.links_f:hover::before,
+.links:hover::before {
+	transform-origin: left;
+	transform: scaleX(1);
+}
+
+.nav_link a.active {
+	border-bottom: 1px solid white;
+}
+
+@font-face {
+	font-family: "Eina";
+	src: url("./assets/fonts/eina-03-bold.ttf") format("ttf");
+	font-weight: 900;
+	font-style: normal;
+}
+
+/* button */
+.up:hover,
+.up:focus {
+	box-shadow: inset 0 -3.25em 0 0 var(--hover);
+}
+.up {
+	--color: #ff6f1e;
+	--hover: #ff6f1e;
+}
+.up {
+	/* color: var(--color); */
+	transition: 0.35s;
+}
+.up:hover,
+.up:focus {
+	border-color: var(--hover);
+	color: #fff;
+}
+.up {
+	background: #1a2b88;
+}
+
+/* stretch header tag */
+.stretched-text {
+	transform: scaleY(1.8); /* Adjust the value to control vertical stretch */
+	transform-origin: center; /* Keeps the text centered while scaling */
+	display: inline-block; /* Ensures transform doesn't affect surrounding layout */
+}
+
+h2 span {
+	display: inline-block;
+	white-space: pre; /* Preserve spaces */
+}
