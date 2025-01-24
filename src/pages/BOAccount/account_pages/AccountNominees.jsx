@@ -60,23 +60,20 @@ const AccountNominees = () => {
 
 	const handleChange = (e) => {
 		const { name, value, type, files } = e.target;
-
 		if (type === "file") {
 			const file = files[0];
 			if (file) {
-				// Check if the file is over the size limit
 				if (file.size > 200 * 1024) {
 					new Compressor(file, {
-						quality: 0.8, // You can adjust quality here
-						maxWidth: 1000, // You can adjust the max width
-						maxHeight: 1000, // You can adjust the max height
+						quality: 0.8,
+						maxWidth: 1000,
+						maxHeight: 1000,
 						success(result) {
-							// Convert the compressed file to base64
 							const reader = new FileReader();
 							reader.onloadend = () => {
 								setFormData((prevState) => ({
 									...prevState,
-									[name]: reader.result, // Set the compressed image data
+									[name]: reader.result,
 								}));
 							};
 							reader.readAsDataURL(result);
@@ -86,7 +83,6 @@ const AccountNominees = () => {
 						},
 					});
 				} else {
-					// If the file is small enough, save it directly
 					const reader = new FileReader();
 					reader.onloadend = () => {
 						setFormData((prevState) => ({
@@ -97,6 +93,11 @@ const AccountNominees = () => {
 					reader.readAsDataURL(file);
 				}
 			}
+		} else {
+			setFormData((prevState) => ({
+				...prevState,
+				[name]: value,
+			}));
 		}
 	};
 
@@ -275,7 +276,6 @@ const AccountNominees = () => {
 							{ label: "Other", value: "other" },
 						]}
 						classStyle="flex justify-between items-center w-fit m-0"
-						required
 					/>
 					{/* nid_front image */}
 					<div className="space-y-1 md:space-y-2">
