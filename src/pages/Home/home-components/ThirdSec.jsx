@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useAnimation, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import Marquees from "./Marquee";
 import thm from "../../../assets/images/videoThmb.jpg";
 import img5 from "../../../assets/images/game.webp";
-import { IoPlayOutline, IoClose } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 import { Slide } from "react-awesome-reveal";
 import { FaPlay } from "react-icons/fa6";
 
@@ -116,10 +116,10 @@ const ThirdSec = () => {
 								/>
 							</div>
 							<div className="flex-1">
-								<h1 className="text-[2.63rem] text-justify md:text-left leading-[2.8rem] font-bold text-white">
+								<h1 className="text-[2.50rem] text-left sm:text-justify md:text-left leading-[2.8rem] font-bold text-white">
 									A Game-Changer for My Investment Strategy!
 								</h1>
-								<p className="text-[#FFFFFFD4] text-justify mt-4 lg:mt-6 text-[17px]">
+								<p className="text-[#FFFFFFD4] text-justify mt-4 lg:mt-6 lg:text-[17px] text-[15px]">
 									As an investor, I’ve always been cautious, but since partnering with
 									AKKHAN Securities Ltd, my approach to the capital markets has completely
 									transformed. The insights, analysis, and tools they provide have given me

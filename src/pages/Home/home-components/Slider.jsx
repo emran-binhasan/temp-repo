@@ -95,12 +95,12 @@ const Slider = () => {
 					drag: true,
 				},
 				"(min-width: 600px)": {
-					slides: { perView: 2, spacing: 40, origin: "auto" },
+					slides: { perView: 2, spacing: 32, origin: "auto" },
 					loop: true,
 					drag: false,
 				},
 				"(min-width: 1000px)": {
-					slides: { perView: 4, spacing: 0, origin: "auto" },
+					slides: { perView: 4, spacing: 20, origin: "auto" },
 					loop: false,
 					drag: false,
 				},
@@ -137,9 +137,15 @@ const Slider = () => {
 						key={slide.id}
 						className="relative h-[110vh] keen-slider__slide"
 					>
-						<div className="absolute right-0 z-20 w-full transform top-1/3">
-							<div className="ml-4 mr-10 lg:mr-0 lg:ml-28">
-								<p className="max-w-[18ch] leading-[3.5rem] text-[2.2rem] font-light lg:font-normal lg:text-[3.5rem] text-white">
+						<div
+							// className="absolute right-0 z-20 w-full transform top-1/3"
+							className="absolute left-1/2 -translate-x-1/2 z-20 w-[82%] transform top-1/3"
+						>
+							<div
+								className="mr-10 lg:mr-0 "
+								// className="ml-4 mr-10 lg:mr-0 lg:ml-28"
+							>
+								<p className="max-w-[18ch] leading-[2.5rem] md:leading-[3.5rem] text-[2rem] font-light lg:font-normal lg:text-[3.5rem] text-white">
 									{slide.title}
 								</p>
 								<button></button>
@@ -157,15 +163,18 @@ const Slider = () => {
 			{/* Thumbnail Slider */}
 			<div
 				ref={thumbnailRef}
-				className="absolute left-0 overflow-hidden thumbnail bottom-[20%] lg:bottom-24 md:left-14 right-4 lg:left-28 md:right-14 lg:right-28"
+				// className="absolute left-0 thumbnail bottom-[20%] lg:bottom-24 md:left-14 right-4 lg:left-28 md:right-14 lg:right-28"
+				className="absolute left-1/2 transform w-[82%] thumbnail bottom-[13%] lg:bottom-24  -translate-x-1/2"
 			>
 				<div className="flex justify-between">
 					{slides.map((slide) => (
 						<div
 							key={slide.id}
-							className="relative w-full text-white select-none keen-slider__slide"
+							className="relative text-white select-none w-fit keen-slider__slide"
 						>
-							<p className="text-lg font-normal text-white w-fit">{slide.title}</p>
+							<p className="w-full text-base font-normal text-white lg:text-lg">
+								{slide.title}
+							</p>
 						</div>
 					))}
 				</div>

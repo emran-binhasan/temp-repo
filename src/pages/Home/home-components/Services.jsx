@@ -135,25 +135,29 @@ const AnimatedTabs = ({ tabs }) => {
 	return (
 		<div className="w-full mx-auto">
 			<div className="relative mb-4">
+				{/* Button grid */}
 				<div className="grid grid-cols-2 gap-y-2 lg:grid-cols-4">
 					{tabs.map((tab, index) => (
 						<button
 							key={index}
 							ref={(el) => (tabRefs.current[index] = el)}
 							className={`px-0 lg:px-4 rounded-full hover:text-white duration-300 hover:bg-nill relative z-20 whitespace-nowrap focus:outline-0 py-2 lg:py-5 text-sm lg:text-lg font-semibold ${
-								activeTab === index ? "text-[#ffffff]" : "text-black"
+								activeTab === index ? "text-[#ffffff] bg-nill" : "text-black"
 							}`}
-							onClick={() => handleTabClick(index)}
+							onClick={() => handleTabClick(index)} // Ensures tab stays active
 						>
-							<span className="">{tab.label}</span>
+							<span>{tab.label}</span>
 						</button>
 					))}
 				</div>
+
+				{/* Slider */}
 				<div
 					className="absolute bottom-0 z-10 transition-all duration-300 rounded-full h-fit lg:h-full bg-nill"
 					style={sliderStyle}
 				/>
 			</div>
+
 			<div className="mt-8">
 				{tabs.map((tab, index) => (
 					<div
@@ -175,7 +179,7 @@ const AnimatedTabs = ({ tabs }) => {
 									<p className="block my-2 text-xl font-semibold text-center md:hidden">
 										{tab.label}
 									</p>
-									<p className="text-black text-justify text-[17px] leading-6 [word-spacing:5px]">
+									<p className="text-black text-justify lg:text-[17px] text-[15px] leading-6 [word-spacing:5px]">
 										{tab.para}
 									</p>
 								</div>

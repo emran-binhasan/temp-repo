@@ -34,33 +34,52 @@ const Marquees = () => {
 		},
 	});
 	return (
-		<div data-cursor="drag" 
+		<div
+			data-cursor="drag"
 			ref={sliderRef}
 			className="keen-slider"
 		>
-			<div data-cursor="drag"  className="keen-slider__slide number-slide1">
-				<img data-cursor="drag" 
+			<div
+				data-cursor="drag"
+				className="keen-slider__slide number-slide1 flex items-center justify-center"
+			>
+				<img
+					data-cursor="drag"
 					src={img1}
 					alt=""
+					className="lg:w-[92%] w-[85%] h-auto"
 				/>
 			</div>
-			<div data-cursor="drag"  className="flex items-center justify-center keen-slider__slide number-slide2">
-				<img data-cursor="drag" 
+			<div
+				data-cursor="drag"
+				className="flex items-center justify-center keen-slider__slide number-slide2"
+			>
+				<img
+					data-cursor="drag"
 					src={img2}
 					alt=""
-					className="w-[80%] h-auto"
+					className="lg:w-[80%] w-[70%] h-auto"
 				/>
 			</div>
-			<div data-cursor="drag"  className="keen-slider__slide number-slide3">
-				<img data-cursor="drag" 
+			<div
+				data-cursor="drag"
+				className="keen-slider__slide number-slide3 flex items-center justify-center"
+			>
+				<img
+					data-cursor="drag"
 					src={img3}
 					alt=""
+					className="lg:w-[92%] w-[85%] h-auto"
 				/>
 			</div>
-			<div data-cursor="drag"  className="flex items-center justify-center keen-slider__slide number-slide4">
-				<img data-cursor="drag" 
+			<div
+				data-cursor="drag"
+				className="flex items-center justify-center keen-slider__slide number-slide4"
+			>
+				<img
+					data-cursor="drag"
 					src={img4}
-					className="w-[80%] h-auto"
+					className="lg:w-[80%] w-[70%] h-auto"
 					alt=""
 				/>
 			</div>

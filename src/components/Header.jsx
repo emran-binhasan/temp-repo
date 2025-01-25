@@ -143,10 +143,11 @@ const Header = () => {
 					`}
 				>
 					<button
+						onClick={() => (window.location.href = "tel:+88028833510")}
 						className={`px-[0.15rem] bg-white relative overflow-hidden py-[0.130rem] border rounded-full 
-							${isScrolled ? "border-black" : "border-white text-black"} 
-							before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-black 
-							before:translate-y-[-100%] hover:before:translate-y-[100%] before:transition-transform before:duration-1000 before:ease-in-out`}
+			${isScrolled ? "border-black" : "border-white text-black"} 
+			before:content-[''] before:absolute before:-top-0 before:left-0 before:w-full before:h-full before:bg-black 
+			before:translate-y-[-100%] hover:before:translate-y-[100%] before:transition-transform before:duration-1000 before:ease-in-out`}
 					>
 						<span
 							className={`flex p-[0.60rem] lg:px-[1.60rem] lg:py-[0.400rem] relative z-20 items-center justify-center rounded-full gap-x-2 ${
@@ -177,12 +178,13 @@ const Header = () => {
 					</Link>
 					<Link
 						to="/open-bo-account/bo-type"
-						className="block p-3 border rounded-full lg:hidden border-dhusor"
+						className={`block p-3 border duration-300 rounded-full lg:hidden
+						${isScrolled ? "border-black" : "border-white"}`}
 					>
 						<FaUser size={20} />
 					</Link>
 
-					<FloatingButton
+					{/* <FloatingButton
 						icon={IoSearch}
 						iconSize={20}
 						hoverRadius={25}
@@ -191,14 +193,14 @@ const Header = () => {
 						classStyle={`lg:w-[2.580rem] lg:h-[2.580rem] w-[2.790rem] h-[2.790rem] ${
 							isScrolled ? "border border-black" : "border border-white"
 						}`}
-					/>
+					/> */}
 				</div>
 			</div>
 
 			{/* Full Screen Menu */}
 			<div
 				className={`
-                fixed inset-0 w-screen h-screen z-[999]
+                fixed inset-0 w-screen bg-[#151414] md:bg-transparent  h-full overflow-y-auto overflow-x-hidden md:h-screen z-[999]
                 ${isMenuOpen ? "visible" : "invisible"}
             `}
 			>
@@ -241,7 +243,7 @@ const Header = () => {
 					</button>
 
 					{/* Navigation */}
-					<div className="relative grid justify-between w-full h-full grid-cols-1 px-4 pt-12 lg:px-6 lg:pt-32 lg:grid-cols-2 lg:gap-x-10 xl:flex-row">
+					<div className="relative grid gap-y-8 justify-between w-full h-full grid-cols-1 px-4 pt-12 lg:px-6 lg:pt-32 lg:grid-cols-2 lg:gap-x-10 xl:flex-row">
 						{/* overlay */}
 						<div
 							className={`
@@ -276,7 +278,7 @@ const Header = () => {
 									showAboutUs ? "max-h-40" : "max-h-0"
 								}`}
 							>
-								<ul className="flex flex-col pl-8 text-base lg:mt-4 lg:mb-2 gap-y-1 lg:gap-y-5">
+								<ul className="flex flex-col pl-8 text-base mt-2 lg:mt-4 lg:mb-2 gap-y-1 lg:gap-y-5">
 									<NavLink
 										to="/directors"
 										className="cursor-pointer"
@@ -339,7 +341,7 @@ const Header = () => {
 							</NavLink>
 						</ul>
 						{/* Contact Information */}
-						<div className=" grid font-medium grid-cols-1 max-w-[570px] font-vietnam text-[13px]">
+						<div className=" grid font-medium grid-cols-1 gap-y-4 max-w-[570px] font-vietnam text-[13px]">
 							<div className="grid grid-cols-1 lg:grid-cols-2">
 								<div>
 									<h4 className="text-[#696969] mb-1.5 lg:mb-6 font-semibold">
