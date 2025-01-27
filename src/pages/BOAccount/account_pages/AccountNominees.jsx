@@ -9,466 +9,270 @@ import RadioGroup from "../../../utils/RadioGroup";
 import Compressor from "compressorjs";
 
 const AccountNominees = () => {
-	const navigate = useNavigate();
 	const pageId = "Nominees";
-	const [showSecondNominee, setShowSecondNominee] = useState(false);
-	const [formData, setFormData] = useState({
-		nominee_name_1: "",
-		passport_number_1: "",
-		country_1: "",
-		mobile_number_1: "",
-		city_1: "",
-		date_of_birth_1: "",
-		post_code_1: "",
-		percentage_1: "",
-		state_1: "",
-		relation_with_client_1: "",
-		present_address_1: "",
-		sex_1: "",
-		nid_front_image_1: null,
-		nid_back_image_1: null,
-
-		nominee_name_2: "",
-		passport_number_2: "",
-		country_2: "",
-		mobile_number_2: "",
-		city_2: "",
-		date_of_birth_2: "",
-		post_code_2: "",
-		percentage_2: "",
-		state_2: "",
-		relation_with_client_2: "",
-		present_address_2: "",
-		sex_2: "",
-		nid_front_image_2: null,
-		nid_back_image_2: null,
-	});
+	const navigate = useNavigate();
 	useScrollToTop();
+	const [formData, setFormData] = useState({
+		nominees: [
+			{
+				nominee_name: "",
+				passport_number: "",
+				country: "",
+				mobile_number: "",
+				city: "",
+				date_of_birth: "",
+				post_code: "",
+				percentage: "",
+				state: "",
+				relation_with_client: "",
+				present_address: "",
+				sex: "",
+				nid_front_image: null,
+				nid_back_image: null,
+			},
+		],
+	});
 
-	const toggleSecondNominee = () => {
-		setShowSecondNominee((prev) => !prev);
+	const handleAddNominee = () => {
+		setFormData((prevData) => ({
+			...prevData,
+			nominees: [
+				...prevData.nominees,
+				{
+					nominee_name: "",
+					passport_number: "",
+					country: "",
+					mobile_number: "",
+					city: "",
+					date_of_birth: "",
+					post_code: "",
+					percentage: "",
+					state: "",
+					relation_with_client: "",
+					present_address: "",
+					sex: "",
+					nid_front_image: null,
+					nid_back_image: null,
+				},
+			],
+		}));
+	};
 
-		// Reset second nominee fields if hiding
-		if (showSecondNominee) {
-			setFormData((prevState) => ({
-				...prevState,
-				nominee_name_2: "",
-				nid_back_image_2: null,
+	const handleRemoveNominee = () => {
+		if (formData.nominees.length > 1) {
+			setFormData((prevData) => ({
+				...prevData,
+				nominees: prevData.nominees.slice(0, -1),
 			}));
 		}
 	};
 
-	const handleChange = (e) => {
-		const { name, value, type, files } = e.target;
-		if (type === "file") {
-			const file = files[0];
-			if (file) {
-				if (file.size > 200 * 1024) {
-					new Compressor(file, {
-						quality: 0.8,
-						maxWidth: 1000,
-						maxHeight: 1000,
-						success(result) {
-							const reader = new FileReader();
-							reader.onloadend = () => {
-								setFormData((prevState) => ({
-									...prevState,
-									[name]: reader.result,
-								}));
-							};
-							reader.readAsDataURL(result);
-						},
-						error(err) {
-							console.error("Compression failed:", err);
-						},
-					});
-				} else {
-					const reader = new FileReader();
-					reader.onloadend = () => {
-						setFormData((prevState) => ({
-							...prevState,
-							[name]: reader.result,
-						}));
-					};
-					reader.readAsDataURL(file);
-				}
+	// const handleChange = (index, field, value) => {
+	// 	setFormData((prevData) => ({
+	// 		...prevData,
+	// 		nominees: prevData.nominees.map((nominee, i) =>
+	// 			i === index ? { ...nominee, [field]: value } : nominee
+	// 		),
+	// 	}));
+	// };
+
+	// const handleImageChange = (index, field, file) => {
+	// 	if (!file || !file.type.startsWith("image/")) {
+	// 		console.error("Invalid file type. Please select an image.");
+	// 		return;
+	// 	}
+
+	// 	const reader = new FileReader();
+
+	// 	reader.onload = (e) => {
+	// 		setFormData((prevData) => ({
+	// 			...prevData,
+	// 			nominees: prevData.nominees.map((nominee, i) =>
+	// 				i === index ? { ...nominee, [field]: e.target.result } : nominee
+	// 			),
+	// 		}));
+	// 	};
+
+	// 	reader.readAsDataURL(file);
+	// };
+	const handleChange = (index, field, value) => {
+		setFormData((prevData) => ({
+			...prevData,
+			nominees: prevData.nominees.map((nominee, i) =>
+				i === index
+					? field === "nid_front_image" || field === "nid_back_image"
+						? { ...nominee, [field]: value } // Handle image uploads
+						: { ...nominee, [field]: value } // Handle text input
+					: nominee
+			),
+		}));
+
+		if (field === "nid_front_image" || field === "nid_back_image") {
+			if (!value || !value.type.startsWith("image/")) {
+				console.error("Invalid file type. Please select an image.");
+				return;
 			}
-		} else {
-			setFormData((prevState) => ({
-				...prevState,
-				[name]: value,
-			}));
+
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				setFormData((prevData) => ({
+					...prevData,
+					nominees: prevData.nominees.map((nominee, i) =>
+						i === index ? { ...nominee, [field]: e.target.result } : nominee
+					),
+				}));
+			};
+			reader.readAsDataURL(value);
 		}
 	};
-
-	useEffect(() => {
-		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
-		const currentPageData = savedData.find((page) => page.id === pageId);
-		if (currentPageData) {
-			setFormData(currentPageData);
-		}
-	}, [pageId]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// Filter out optional fields if all values are empty for the second nominee
-		const optionalFields = Object.keys(formData).filter((key) => key.endsWith("_2"));
-		const hasSecondNomineeData = optionalFields.some((field) => formData[field]);
+		console.log("Selected values:", formData);
 
-		// Create a filtered version of the formData
-		const filteredData = { ...formData };
-		if (!hasSecondNomineeData) {
-			optionalFields.forEach((field) => delete filteredData[field]);
-		}
-
-		console.log("Selected values:", filteredData);
-
-		// Retrieve existing data from localStorage or initialize an empty array
 		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
-
-		// Filter out the current page's data by pageId and update it with the new filteredData
 		const updatedData = savedData.filter((page) => page.id !== pageId);
-		updatedData.push({ ...filteredData, id: pageId });
 
-		// Save the updated data back to localStorage
+		updatedData.push({ ...formData, id: pageId });
 		localStorage.setItem("formData", JSON.stringify(updatedData));
 
 		console.log("Form submitted. Updated data:", updatedData);
-		navigate("/open-bo-account/complete");
+		navigate("/open-bo-account/nominees");
 	};
 
-	// go back button
 	const goBack = () => {
 		navigate(-1);
 	};
 
 	return (
-		<div>
-			<form
-				onSubmit={handleSubmit}
-				className="flex flex-col gap-y-6"
-			>
-				{/* 1st Nominee */}
-				<div className="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-2">
-					<h4 className="w-full col-span-1 pb-3 text-lg font-semibold border-b lg:col-span-2 border-dhusor">
-						Nominee&apos;s Information
-					</h4>
-					{/* Nominees name */}
-					<InputField
-						onChange={handleChange}
-						label="Nominee Name"
-						value={formData.nominee_name_1}
-						name="nominee_name_1"
-						placeholder="Nominee Name"
-						type="text"
-						required
-					/>
-					{/* nominees Passport Number */}
-					<InputField
-						onChange={handleChange}
-						label="Passport Number"
-						value={formData.passport_number_1}
-						name="passport_number_1"
-						placeholder="Passport Number"
-						type="text"
-						required
-					/>
-					{/* nominees Country */}
-					<InputField
-						onChange={handleChange}
-						label="Country"
-						value={formData.country_1}
-						name="country_1"
-						placeholder="Country"
-						type="text"
-						required
-					/>
-					{/* nominees Mobile Number */}
-					<InputField
-						onChange={handleChange}
-						label="Mobile Number"
-						value={formData.mobile_number_1}
-						name="mobile_number_1"
-						placeholder="Mobile Number"
-						type="text"
-						required
-					/>
-					{/* nominees City */}
-					<InputField
-						onChange={handleChange}
-						label="City"
-						value={formData.city_1}
-						name="city_1"
-						placeholder="City"
-						type="text"
-						required
-					/>
-					{/* nominees Date of Birth */}
-					<InputField
-						onChange={handleChange}
-						label="Date of Birth"
-						value={formData.date_of_birth_1}
-						name="date_of_birth_1"
-						placeholder="Date of Birth"
-						type="date"
-						required
-					/>
-					{/* nominees Post Code */}
-					<InputField
-						onChange={handleChange}
-						label="Post Code"
-						value={formData.post_code_1}
-						name="post_code_1"
-						placeholder="Post Code"
-						type="text"
-						required
-					/>
-					{/* nominees Percentage */}
-					<InputField
-						onChange={handleChange}
-						label="Percentage"
-						value={formData.percentage_1}
-						name="percentage_1"
-						placeholder="Percentage"
-						type="text"
-						required
-					/>
-					{/* nominees State */}
-					<InputField
-						onChange={handleChange}
-						label="State"
-						value={formData.state_1}
-						name="state_1"
-						placeholder="State"
-						type="text"
-						required
-					/>
-					{/* nominees Relation */}
-					<InputField
-						onChange={handleChange}
-						label="Relation with Client"
-						value={formData.relation_with_client_1}
-						name="relation_with_client_1"
-						placeholder="Relation with Client"
-						type="text"
-						required
-					/>
-					{/* nominees Present Address */}
-					<InputField
-						onChange={handleChange}
-						label="Present Address"
-						value={formData.present_address_1}
-						name="present_address_1"
-						placeholder="Present Address"
-						type="text"
-						required
-					/>
-					{/* nominees Sex */}
-					<RadioGroup
-						label="Sex"
-						name="sex_1"
-						value={formData.sex_1}
-						onChange={handleChange}
-						options={[
-							{ label: "Male", value: "male" },
-							{ label: "Female", value: "female" },
-							{ label: "Other", value: "other" },
-						]}
-						classStyle="flex justify-between items-center w-fit m-0"
-					/>
-					{/* nid_front image */}
-					<div className="space-y-1 md:space-y-2">
-						<label className="block text-xs font-semibold md:text-sm">NID Front image</label>
-						<div className="flex items-center justify-between gap-x-4">
-							<input
-								type="file"
-								name="nid_front_image_1"
-								accept="image/*"
-								onChange={handleChange}
-								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
-							/>
-							{formData.nid_front_image_1 && (
-								<div className="h-10 w-28">
-									<img
-										src={formData.nid_front_image_1}
-										alt="Signature Preview"
-										className="object-cover w-full h-full rounded-md"
-									/>
-								</div>
-							)}
-						</div>
-					</div>
-					{/* nid_back image */}
-					<div className="space-y-1 md:space-y-2">
-						<label className="block text-xs font-semibold md:text-sm">NID Back image</label>
-						<div className="flex items-center justify-between gap-x-4">
-							<input
-								type="file"
-								name="nid_back_image_1"
-								accept="image/*"
-								onChange={handleChange}
-								className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
-							/>
-							{formData.nid_back_image_1 && (
-								<div className="h-10 w-28">
-									<img
-										src={formData.nid_back_image_1}
-										alt="Signature Preview"
-										className="object-cover w-full h-full rounded-md"
-									/>
-								</div>
-							)}
-						</div>
-					</div>
-				</div>
-				{/* 2nd Nominee (Optional) */}
-
-				{showSecondNominee && (
-					<div className="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-2">
-						<h4 className="w-full col-span-1 pb-3 text-lg font-semibold border-b lg:col-span-2 border-dhusor">
-							Second Nominee&apos;s Information
+		<form onSubmit={handleSubmit}>
+			<div>
+				{formData.nominees.map((nominee, index) => (
+					<div
+						key={index}
+						className="grid grid-cols-2 gap-4 lg:grid-cols-2"
+					>
+						<h4 className="w-full col-span-1 py-3 text-lg font-semibold border-b lg:col-span-2 border-dhusor">
+							{index + 1} Nominee&apos;s Information
 						</h4>
-						{/* Nominees name */}
 						<InputField
-							onChange={handleChange}
-							label="Nominee Name"
-							value={formData.nominee_name_2}
-							name="nominee_name_2"
-							placeholder="Nominee Name"
+							onChange={(e) => handleChange(index, "nominee_name", e.target.value)}
+							label="Nominee Name (As per NID"
+							value={nominee.nominee_name}
+							name={`nominee_name_${index + 1}`}
 							type="text"
 							required
 						/>
-						{/* nominees Passport Number */}
 						<InputField
-							onChange={handleChange}
+							onChange={(e) => handleChange(index, "passport_number", e.target.value)}
 							label="Passport Number"
-							value={formData.passport_number_2}
-							name="passport_number"
-							placeholder="Passport Number"
+							value={nominee.passport_number}
+							name={`passport_number_${index + 1}`}
 							type="text"
-							required
 						/>
-						{/* nominees Country */}
 						<InputField
-							onChange={handleChange}
+							onChange={(e) => handleChange(index, "country", e.target.value)}
 							label="Country"
-							value={formData.country_2}
-							name="country"
-							placeholder="Country"
+							value={nominee.country}
+							name={`country_${index + 1}`}
 							type="text"
 							required
 						/>
-						{/* nominees Mobile Number */}
 						<InputField
-							onChange={handleChange}
+							onChange={(e) => handleChange(index, "mobile_number", e.target.value)}
 							label="Mobile Number"
-							value={formData.mobile_number_2}
-							name="mobile_number"
-							placeholder="Mobile Number"
+							value={nominee.mobile_number}
+							name={`mobile_number_${index + 1}`}
 							type="text"
-							required
 						/>
-						{/* nominees City */}
 						<InputField
-							onChange={handleChange}
+							onChange={(e) => handleChange(index, "city", e.target.value)}
 							label="City"
-							value={formData.city_2}
-							name="city"
-							placeholder="City"
+							value={nominee.city}
+							name={`city_${index + 1}`}
 							type="text"
 							required
 						/>
-						{/* nominees Date of Birth */}
 						<InputField
-							onChange={handleChange}
-							label="Date of Birth"
-							value={formData.date_of_birth_2}
-							name="date_of_birth"
-							placeholder="Date of Birth"
-							type="date"
+							onChange={(e) => handleChange(index, "date_of_birth", e.target.value)}
+							label="Date Of Birth (As per NID)"
+							value={nominee.date_of_birth}
+							name={`date_of_birth_${index + 1}`}
+							type="text"
 							required
 						/>
-						{/* nominees Post Code */}
 						<InputField
-							onChange={handleChange}
+							onChange={(e) => handleChange(index, "post_code", e.target.value)}
 							label="Post Code"
-							value={formData.post_code_2}
-							name="post_code"
-							placeholder="Post Code"
+							value={nominee.post_code}
+							name={`post_code_${index + 1}`}
 							type="text"
 							required
 						/>
-						{/* nominees Percentage */}
 						<InputField
-							onChange={handleChange}
+							onChange={(e) => handleChange(index, "percentage", e.target.value)}
 							label="Percentage"
-							value={formData.percentage_2}
-							name="percentage"
-							placeholder="Percentage"
+							value={nominee.percentage}
+							name={`percentage_${index + 1}`}
 							type="text"
 							required
 						/>
-						{/* nominees State */}
 						<InputField
-							onChange={handleChange}
-							label="State"
-							value={formData.state_2}
-							name="state"
-							placeholder="State"
+							onChange={(e) => handleChange(index, "state", e.target.value)}
+							label="State/Division"
+							value={nominee.state}
+							name={`state_${index + 1}`}
 							type="text"
 							required
 						/>
-						{/* nominees Relation */}
 						<InputField
-							onChange={handleChange}
-							label="Relation with Client"
-							value={formData.relation_with_client_2}
-							name="relation_with_client"
-							placeholder="Relation with Client"
+							onChange={(e) => handleChange(index, "relation_with_client", e.target.value)}
+							label="Relation With Client"
+							value={nominee.relation_with_client}
+							name={`relation_with_client_${index + 1}`}
 							type="text"
 							required
 						/>
-						{/* nominees Present Address */}
 						<InputField
-							onChange={handleChange}
+							onChange={(e) => handleChange(index, "present_address", e.target.value)}
 							label="Present Address"
-							value={formData.present_address_2}
-							name="present_address"
-							placeholder="Present Address"
+							value={nominee.present_address}
+							name={`present_address_${index + 1}`}
 							type="text"
 							required
 						/>
-						{/* nominees Sex */}
 						<RadioGroup
-							label="Sex"
-							name="sex_2"
-							value={formData.sex_2}
-							onChange={handleChange}
+							label="Sec"
+							name="sex"
 							options={[
 								{ label: "Male", value: "male" },
 								{ label: "Female", value: "female" },
 								{ label: "Other", value: "other" },
 							]}
-							classStyle="flex justify-between items-center w-fit m-0"
-							required
+							value={formData.sex}
+							onChange={handleChange}
+							required={true}
+							classStyle="space-y-2"
 						/>
 						{/* nid_front image */}
-						<div className="space-y-1 md:space-y-2">
-							<label className="block text-xs font-semibold md:text-sm">NID Front image</label>
+						<div>
+							<label className="block mb-2 text-sm font-semibold">NID Front image</label>
 							<div className="flex items-center justify-between gap-x-4">
 								<input
 									type="file"
-									name="nid_front_image_2"
+									name={`nid_front_image_${index + 1}`}
 									accept="image/*"
-									onChange={handleChange}
+									onChange={(e) =>
+										handleChange(index, "nid_front_image", e.target.files[0])
+									}
 									className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 								/>
-								{formData.nid_front_image && (
+								{formData.nominees[index].nid_front_image && (
 									<div className="h-10 w-28">
 										<img
-											src={formData.nid_front_image}
-											alt="Signature Preview"
+											src={formData.nominees[index].nid_front_image}
+											alt="NID Front Image Preview"
 											className="object-cover w-full h-full rounded-md"
 										/>
 									</div>
@@ -476,21 +280,21 @@ const AccountNominees = () => {
 							</div>
 						</div>
 						{/* nid_back image */}
-						<div className="space-y-1 md:space-y-2">
-							<label className="block text-xs font-semibold md:text-sm">NID Back image</label>
+						<div>
+							<label className="block mb-2 text-sm font-semibold">NID Back image</label>
 							<div className="flex items-center justify-between gap-x-4">
 								<input
 									type="file"
-									name="nid_back_image_2"
+									name={`nid_back_image_${index + 1}`}
 									accept="image/*"
-									onChange={handleChange}
+									onChange={(e) => handleChange(index, "nid_back_image", e.target.files[0])}
 									className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 								/>
-								{formData.nid_back_image && (
+								{formData.nominees[index].nid_back_image && (
 									<div className="h-10 w-28">
 										<img
-											src={formData.nid_back_image}
-											alt="Signature Preview"
+											src={formData.nominees[index].nid_back_image}
+											alt="NID Back Image Preview"
 											className="object-cover w-full h-full rounded-md"
 										/>
 									</div>
@@ -498,31 +302,38 @@ const AccountNominees = () => {
 							</div>
 						</div>
 					</div>
-				)}
-				{/* submit button */}
-				<div className="flex items-center justify-end mt-12 lg:col-span-2 gap-x-4">
-					<FloatingButton
-						icon={IoIosArrowBack}
-						borderColor="white"
-						iconSize={20}
-						hoverRadius={25}
-						buttonSpeed={0.3}
-						iconSpeed={0.9}
-						classStyle={"border border-black h-[2.580rem] w-[7.580rem]"}
-						handleClick={goBack}
-					/>
+				))}
+			</div>
+
+			<div className="flex items-center justify-end mt-12 lg:col-span-2 gap-x-4">
+				<FloatingButton
+					icon={IoIosArrowBack}
+					borderColor="white"
+					iconSize={20}
+					hoverRadius={25}
+					buttonSpeed={0.3}
+					iconSpeed={0.9}
+					classStyle={"border border-black h-[2.580rem] w-[7.580rem]"}
+					handleClick={goBack}
+				/>
+				<Button
+					type={"button"}
+					content={"Add Another Nominee"}
+					handleClick={handleAddNominee}
+				/>
+				{formData.nominees.length > 1 && (
 					<Button
 						type={"button"}
-						content={showSecondNominee ? "Remove Another Nominee" : "Add Another Nominee"}
-						handleClick={toggleSecondNominee}
+						content={"Remove Nominee"}
+						handleClick={handleRemoveNominee}
 					/>
-					<Button
-						type={"submit"}
-						content="Save & Next"
-					/>
-				</div>
-			</form>
-		</div>
+				)}
+				<Button
+					type={"submit"}
+					content="Save & Next"
+				/>
+			</div>
+		</form>
 	);
 };
 
