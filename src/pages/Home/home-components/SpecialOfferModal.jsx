@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { AiOutlineClose } from "react-icons/ai";
 import { motion } from "framer-motion"; // For animation
 import modalImg from "../../../assets/images/modal.png";
 import { IoMdClose } from "react-icons/io";
@@ -36,7 +35,7 @@ const SpecialOffersModal = ({ isOpen, onClose }) => {
 
 	return (
 		<motion.div
-			className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+			className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			transition={{ duration: 0.3 }}
@@ -51,10 +50,10 @@ const SpecialOffersModal = ({ isOpen, onClose }) => {
 				/>
 				<button
 					onClick={onClose}
-					className="absolute top-0 right-0 text-white text-3xl transition-all hover:scale-110"
+					className="absolute top-0 right-0 text-3xl text-white transition-all hover:scale-110"
 				>
 					<IoMdClose
-						className="bg-gray-100 text-gray-700"
+						className="text-gray-700 bg-gray-100"
 						size={26}
 					/>
 				</button>

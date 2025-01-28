@@ -4,7 +4,6 @@ import Posts from "./home-components/Posts";
 import useScrollToTop from "../../utils/useScrollToTop";
 import Slider from "./home-components/Slider";
 import useTitle from "../../utils/useTitle";
-import SpecialOffers from "./home-components/SpecialOffers";
 import SpecialOffersModal from "./home-components/SpecialOfferModal";
 import { useEffect, useState } from "react";
 
@@ -14,12 +13,11 @@ const Home = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	useEffect(() => {
-	  // Show modal when user visits the page
-	  setIsModalOpen(true);
+		setIsModalOpen(true);
 	}, []);
-  
+
 	const handleCloseModal = () => {
-	  setIsModalOpen(false);
+		setIsModalOpen(false);
 	};
 
 	return (
@@ -30,11 +28,13 @@ const Home = () => {
 			<div className="mt-16">
 				<ThirdSec />
 			</div>
-			<SpecialOffers/>
 			<div>
 				<Posts />
 			</div>
-			<SpecialOffersModal isOpen={isModalOpen} onClose={handleCloseModal} />
+			<SpecialOffersModal
+				isOpen={isModalOpen}
+				onClose={handleCloseModal}
+			/>
 		</div>
 	);
 };
