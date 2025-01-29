@@ -33,30 +33,6 @@ const AccountNominees = () => {
 		],
 	});
 
-	// const handleAddNominee = () => {
-	// 	setFormData((prevData) => ({
-	// 		...prevData,
-	// 		nominees: [
-	// 			...prevData.nominees,
-	// 			{
-	// 				nominee_name: "",
-	// 				passport_number: "",
-	// 				country: "",
-	// 				mobile_number: "",
-	// 				city: "",
-	// 				date_of_birth: "",
-	// 				post_code: "",
-	// 				percentage: "",
-	// 				state: "",
-	// 				relation_with_client: "",
-	// 				present_address: "",
-	// 				sex: "",
-	// 				nid_front_image: null,
-	// 				nid_back_image: null,
-	// 			},
-	// 		],
-	// 	}));
-	// };
 	const handleAddNominee = () => {
 		setFormData((prevData) => {
 			const newIndex = prevData.nominees.length + 1;
@@ -95,35 +71,6 @@ const AccountNominees = () => {
 		}
 	};
 
-	// const handleChange = (index, field, value) => {
-	// 	setFormData((prevData) => ({
-	// 		...prevData,
-	// 		nominees: prevData.nominees.map((nominee, i) =>
-	// 			i === index ? { ...nominee, [field]: value } : nominee
-	// 		),
-	// 	}));
-	// };
-
-	// const handleImageChange = (index, field, file) => {
-	// 	if (!file || !file.type.startsWith("image/")) {
-	// 		console.error("Invalid file type. Please select an image.");
-	// 		return;
-	// 	}
-
-	// 	const reader = new FileReader();
-
-	// 	reader.onload = (e) => {
-	// 		setFormData((prevData) => ({
-	// 			...prevData,
-	// 			nominees: prevData.nominees.map((nominee, i) =>
-	// 				i === index ? { ...nominee, [field]: e.target.result } : nominee
-	// 			),
-	// 		}));
-	// 	};
-
-	// 	reader.readAsDataURL(file);
-	// };
-
 	useEffect(() => {
 		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
 		const currentPageData = savedData.find((page) => page.id === pageId);
@@ -132,15 +79,6 @@ const AccountNominees = () => {
 		}
 	}, [pageId]);
 
-	// const handleChange = (index, field, value) => {
-	// 	setFormData((prevData) => ({
-	// 		...prevData,
-
-	// 		nominees: prevData.nominees.map((nominee, i) =>
-	// 			i === index ? { ...nominee, [field]: value } : nominee
-	// 		),
-	// 	}));
-	// };
 	const handleChange = (index, field, value) => {
 		setFormData((prevData) => ({
 			...prevData,
@@ -150,35 +88,6 @@ const AccountNominees = () => {
 		}));
 	};
 
-	// const handleImageUpload = (file, index, field) => {
-	// 	if (!file || !file.type.startsWith("image/")) {
-	// 		console.error("Invalid file type. Please select an image.");
-	// 		return;
-	// 	}
-
-	// 	const reader = new FileReader();
-
-	// 	reader.onload = (e) => {
-	// 		setFormData((prevData) => ({
-	// 			...prevData,
-	// 			nominees: prevData.nominees.map((nominee, i) =>
-	// 				i === index ? { ...nominee, [field]: e.target.result } : nominee
-	// 			),
-	// 		}));
-	// 	};
-
-	// 	new Compressor(file, {
-	// 		quality: 0.8,
-	// 		maxWidth: 1000,
-	// 		maxHeight: 1000,
-	// 		success(result) {
-	// 			reader.readAsDataURL(result);
-	// 		},
-	// 		error(err) {
-	// 			console.error("Compression failed:", err);
-	// 		},
-	// 	});
-	// };
 	const handleImageUpload = (file, index, field) => {
 		if (!file || !file.type.startsWith("image/")) {
 			console.error("Invalid file type. Please select an image.");
@@ -209,29 +118,14 @@ const AccountNominees = () => {
 		});
 	};
 
-	// const handleSubmit = (e) => {
-	// 	e.preventDefault();
-
-	// 	console.log("Selected values:", formData);
-
-	// 	const savedData = JSON.parse(localStorage.getItem("formData")) || [];
-	// 	const updatedData = savedData.filter((page) => page.id !== pageId);
-
-	// 	updatedData.push({ ...formData, id: pageId });
-	// 	localStorage.setItem("formData", JSON.stringify(updatedData));
-
-	// console.log("Form submitted. Updated data:", updatedData);
-	// 	navigate("/open-bo-account/nominees");
-	// };
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log("Selected values:", formData);
 		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
 		const updatedData = savedData.filter((page) => page.id !== pageId);
 
 		updatedData.push({ ...formData, id: pageId });
 		localStorage.setItem("formData", JSON.stringify(updatedData));
-		console.log("Form submitted. Updated data:", updatedData);
+
 		navigate("/open-bo-account/nominees");
 	};
 
@@ -245,7 +139,7 @@ const AccountNominees = () => {
 				{formData.nominees.map((nominee, index) => (
 					<div
 						key={index}
-						className="grid grid-cols-2 gap-4 lg:grid-cols-2"
+						className="grid grid-cols-1 gap-4 lg:grid-cols-2"
 					>
 						<h4 className="w-full col-span-1 py-3 text-lg font-semibold border-b lg:col-span-2 border-dhusor">
 							{index + 1} Nominee&apos;s Information
@@ -401,7 +295,7 @@ const AccountNominees = () => {
 				))}
 			</div>
 
-			<div className="flex items-center justify-end mt-12 lg:col-span-2 gap-x-4">
+			<div className="flex flex-col items-center justify-end gap-4 mt-12">
 				<FloatingButton
 					icon={IoIosArrowBack}
 					borderColor="white"
