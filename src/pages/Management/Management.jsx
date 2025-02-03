@@ -1,26 +1,35 @@
-import React from "react";
 import useScrollToTop from "../../utils/useScrollToTop";
 import useScroll from "../../utils/useScroll";
 import banner from "../../assets/images/banners/management.jpg";
 import profile from "../../assets/images/banners/management-team.png";
 import useTitle from "../../utils/useTitle";
 import Markdown from "../../utils/Markdown";
-
-const data = [
-	{
-		id: 1,
-		image: profile,
-		des: `# Muhammad Moniruzzaman Miah\n
-		# CEO
-		A. K. Khan Securities Ltd.
-		`,
-	},
-];
+import { useState, useEffect } from "react";
 
 const Management = () => {
 	const isScrolled = useScroll("top-navbar");
 	useScrollToTop();
 	useTitle("Management Team");
+
+	const [data, setData] = useState([]);
+	console.log("data: ", data);
+
+	//
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		try {
+			fetch(`${import.meta.env.VITE_API_URL}/management`)
+				.then((res) => res.json())
+				.then((data) => {
+					setData(data.data);
+					setIsLoading(false);
+				});
+		} catch (error) {
+			console.log("error: ", error.message);
+			setIsLoading(false);
+		}
+	}, []);
 
 	return (
 		<div className="">
@@ -42,10 +51,11 @@ const Management = () => {
 						className="flex flex-col lg:flex-row gap-x-16 gap-y-4"
 					>
 						<img
-							src={tab.image}
+							src={tab.image_url}
 							className="h-auto block lg:mx-0 mx-auto w-auto max-w-[200px] max-h-[200px] object-cover"
 						/>
-						<Markdown content={tab.des} />
+						<Markdown content={tab.designation} />
+						<Markdown content={tab.description} />
 					</div>
 				))}
 			</div>

@@ -9,7 +9,6 @@ const AccountComplete = () => {
 	const navigate = useNavigate();
 
 	const formData = JSON.parse(localStorage.getItem("formData")) || [];
-	console.log("formData: ", formData);
 
 	const submitData = async () => {
 		try {

@@ -5,6 +5,7 @@ import FloatingButton from "../../utils/FloatingButton";
 import { IoIosArrowBack } from "react-icons/io";
 import useScrollToTop from "../../utils/useScrollToTop";
 import useTitle from "../../utils/useTitle";
+import axios from "axios";
 
 const Posts = () => {
 	const { id } = useParams();
@@ -17,14 +18,23 @@ const Posts = () => {
 		navigate(-1);
 	};
 
-	useEffect(() => {
-		fetch("/data.json")
-			.then((response) => response.json())
-			.then((data) => {
-				const post = data.find((item) => item.id === parseInt(id));
-				setPost(post);
-			})
-			.catch((error) => console.log(error));
+	useEffect(async () => {
+		// fetch(`${import.meta.env.VITE_API_URL}/blogs/?id=${id}`)
+		// 	.then((response) => response.json())
+		// 	.then((data) => {
+		// 		console.log("data: ", data);
+		// 		const post = data.find((item) => item.id === parseInt(id));
+		// 		setPost(post);
+		// 	})
+		// 	.catch((error) => console.log(error));
+		try {
+			const response = await axios.get(`${import.meta.env.VITE_API_URL}/blogs/${id}`);
+			const data = response.data;
+			console.log("data: ", data);
+			const post = data.find((item) => item.id === parseInt(id));
+		} catch (error) {
+			console.log("error: ", error);
+		}
 	}, [id]);
 
 	return (

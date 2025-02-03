@@ -11,7 +11,7 @@ const Markdown = ({ content, classStyle }) => {
 					br: ({ node, ...props }) => <br className="leading-6" />,
 					h1: ({ node, ...props }) => (
 						<h1
-							className="mb-2 text-3xl font-bold text-black"
+							className="mb-2 text-xl font-bold text-black md:text-2xl lg:text-3xl"
 							{...props}
 						/>
 					),

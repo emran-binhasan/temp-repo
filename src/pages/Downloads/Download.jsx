@@ -1,42 +1,33 @@
 import { useScroll } from "framer-motion";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useScrollToTop from "../../utils/useScrollToTop";
 import banner from "../../assets/images/banners/download.jpg";
 import banner_bg from "../../assets/images/banners/download_bg.jpg";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import useTitle from "../../utils/useTitle";
 
-const data = [
-	{
-		id: 1,
-		label: "Account Opening Form - Company",
-	},
-	{
-		id: 2,
-		label: "Account Opening Form - Individual and Joint",
-	},
-	{
-		id: 3,
-		label: "Buy and Sell Order Form",
-	},
-	{
-		id: 4,
-		label: "DSE Mobile Registration Form",
-	},
-	{
-		id: 5,
-		label: "Online Services Registration Form",
-	},
-	{
-		id: 6,
-		label: "Fund Withdrawal Request Form",
-	},
-];
-
 const Downloads = () => {
 	const isScrolled = useScroll("top-navbar");
-	// useScrollToTop();
+	useScrollToTop();
 	useTitle("Download");
+	const [data, setData] = useState([]);
+
+	//
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		try {
+			fetch(`${import.meta.env.VITE_API_URL}/download-forms`)
+				.then((res) => res.json())
+				.then((data) => {
+					setData(data.data);
+					setIsLoading(false);
+				});
+		} catch (error) {
+			console.log("error: ", error.message);
+			setIsLoading(false);
+		}
+	}, []);
 
 	return (
 		<div className="">
@@ -55,7 +46,7 @@ const Downloads = () => {
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 					{data.map((tab) => (
 						<div
-							key={tab.label}
+							key={tab.id}
 							className="relative "
 						>
 							<img
@@ -63,12 +54,31 @@ const Downloads = () => {
 								className="object-cover w-full h-40 rounded-lg opacity-20"
 							/>
 							<div className="mx-1">
-								<button className="flex rounded-md gap-x-1.5 items-center justify-center w-full py-2 text-white bg-nill">
+								<button
+									onClick={async () => {
+										try {
+											const response = await fetch(tab.file_url);
+											const blob = await response.blob();
+											const blobUrl = window.URL.createObjectURL(blob);
+											const link = document.createElement("a");
+											link.href = blobUrl;
+											link.download = "document.pdf";
+											document.body.appendChild(link);
+											link.click();
+
+											document.body.removeChild(link);
+											window.URL.revokeObjectURL(blobUrl);
+										} catch (error) {
+											console.error("Download failed:", error);
+										}
+									}}
+									className="flex rounded-md gap-x-1.5 items-center justify-center w-full py-2 text-white bg-nill"
+								>
 									<FaCloudDownloadAlt size={22} /> Download
 								</button>
 							</div>
 							<div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-								<p className="whitespace-nowrap">{tab.label}</p>
+								<p className="whitespace-nowrap">{tab.form_name}</p>
 							</div>
 						</div>
 					))}

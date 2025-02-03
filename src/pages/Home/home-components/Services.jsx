@@ -5,9 +5,6 @@ import img2 from "../../../assets/images/tabs/2.jpeg";
 import img3 from "../../../assets/images/tabs/3.jpeg";
 import img4 from "../../../assets/images/tabs/4.jpeg";
 
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
-
 const tabsData = [
 	{
 		id: 1,
