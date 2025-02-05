@@ -50,8 +50,8 @@ const Vision = () => {
                         ${isScrolled ? "scale-105" : "scale-100"}`}
 				/>
 			</div>
-			<div className="flex flex-col mx-4 lg:mx-16 gap-y-10 lg:gap-y-28">
-				<h1 className="text-[1.63rem] uppercase mt-4 text-center lg:text-[2.63rem] font-semibold w-full whitespace-nowrap text-black">
+			<div className="flex flex-col mx-4 lg:mx-32 gap-y-10 lg:gap-y-28">
+				<h1 className="text-[1.63rem] uppercase mt-4 text-center lg:text-[2.2rem] font-semibold w-full whitespace-nowrap text-black">
 					Vision & Mission
 				</h1>
 				{data.map((tab) => (
@@ -64,7 +64,7 @@ const Vision = () => {
 							backgroundPosition: "center",
 						}}
 					>
-						<p className="text-[1.63rem] mb-6 leading-[2.2rem] md:leading-[2.7rem] lg:text-[2.63rem] font-semibold w-full whitespace-nowrap text-black">
+						<p className="text-[1.63rem] mb-6 leading-[2.2rem] md:leading-[2.7rem] lg:text-[2.2rem] font-semibold w-full whitespace-nowrap text-black">
 							{tab.title}
 						</p>
 						<Markdown content={tab.body} />

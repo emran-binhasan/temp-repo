@@ -40,7 +40,7 @@ const Downloads = () => {
 				/>
 			</div>
 			<div className="flex flex-col mx-4 lg:mx-32 gap-y-28">
-				<h1 className="text-[1.63rem] lg:text-[2.63rem] mt-8 font-medium uppercase text-center w-full whitespace-nowrap text-black mb-8">
+				<h1 className="text-[1.63rem] lg:text-[2.2rem] mt-8 font-medium uppercase text-center w-full whitespace-nowrap text-black mb-8">
 					Download
 				</h1>
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

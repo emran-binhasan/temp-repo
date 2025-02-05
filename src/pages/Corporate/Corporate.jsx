@@ -36,11 +36,11 @@ const Corporate = () => {
 				/>
 			</div>
 			<div>
-				<h1 className="text-[1.63rem] uppercase mt-4 text-center lg:text-[2.63rem] font-semibold w-full whitespace-nowrap text-black">
+				<h1 className="text-[1.63rem] uppercase mt-4 text-center lg:text-[2.2rem] font-semibold w-full whitespace-nowrap text-black">
 					Corporate Profile
 				</h1>
 				<div
-					className="flex flex-col p-4 mx-2 md:mx-6 lg:mx-16 gap-y-28"
+					className="flex flex-col p-4 mx-2 md:mx-6 lg:mx-32 gap-y-28"
 					style={{
 						backgroundImage: `url(${bg})`,
 						backgroundSize: "cover",

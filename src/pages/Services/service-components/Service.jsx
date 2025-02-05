@@ -48,22 +48,22 @@ const Service = () => {
                         ${isScrolled ? "scale-105" : "scale-100"}`}
 				/>
 			</div>
-			<div className="flex flex-col mx-4 md:mx-6 lg:mx-16 gap-y-28">
-				<h1 className="text-[1.63rem] uppercase mt-4 text-center lg:text-[2.63rem] font-semibold w-full whitespace-nowrap text-black">
+			<div className="flex flex-col mx-4 md:mx-6 lg:mx-32 gap-y-28">
+				<h1 className="text-[1.63rem] uppercase mt-4 text-center lg:text-[2.2rem] font-semibold w-full whitespace-nowrap text-black">
 					Services
 				</h1>
 				{data.map((tab) => (
 					<div
 						key={tab.id}
-						className="flex  flex-col gap-y-4 lg:flex-row gap-x-16"
+						className="flex flex-col gap-y-4 lg:flex-row gap-x-16"
 					>
 						<img
 							src={tab.image}
 							alt=""
-							className="w-full h-auto"
+							className="lg:w-[60%] w-[100%] aspect-square object-cover"
 						/>
 						<div className="flex flex-col items-start justify-center lg:w-2/3 gap-y-4">
-							<h2 className="text-[1.63rem] lg:text-[2.63rem] font-semibold w-full whitespace-nowrap text-black">
+							<h2 className="text-[1.63rem] lg:text-[2.2rem] font-semibold w-full whitespace-nowrap text-black">
 								{tab.title}
 							</h2>
 							{/* Body rendered as Markdown */}

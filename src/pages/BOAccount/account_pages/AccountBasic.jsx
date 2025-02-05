@@ -93,15 +93,30 @@ const AccountBasic = () => {
 	};
 
 	const handleCopyPresentAddress = () => {
-		setFormData((prevState) => ({
-			...prevState,
-			ac_holder_permanent_country: prevState.ac_holder_present_country,
-			ac_holder_permanent_city: prevState.ac_holder_present_city,
-			ac_holder_permanent_state: prevState.ac_holder_present_state,
-			ac_holder_permanent_postal_code: prevState.ac_holder_present_postal_code,
-			ac_holder_permanent_address_line: prevState.ac_holder_present_address_line,
-		}));
-		setIsSameAddress(true);
+		setFormData((prevState) => {
+			if (!isSameAddress) {
+				// Copy present address to permanent address
+				return {
+					...prevState,
+					ac_holder_permanent_country: prevState.ac_holder_present_country,
+					ac_holder_permanent_city: prevState.ac_holder_present_city,
+					ac_holder_permanent_state: prevState.ac_holder_present_state,
+					ac_holder_permanent_postal_code: prevState.ac_holder_present_postal_code,
+					ac_holder_permanent_address_line: prevState.ac_holder_present_address_line,
+				};
+			} else {
+				// Clear permanent address fields
+				return {
+					...prevState,
+					ac_holder_permanent_country: "",
+					ac_holder_permanent_city: "",
+					ac_holder_permanent_state: "",
+					ac_holder_permanent_postal_code: "",
+					ac_holder_permanent_address_line: "",
+				};
+			}
+		});
+		setIsSameAddress((prev) => !prev); // Toggle the state
 	};
 
 	useEffect(() => {

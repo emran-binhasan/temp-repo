@@ -1,86 +1,53 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Fade, Slide } from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
 import img1 from "../../../assets/images/tabs/1.jpeg";
 import img2 from "../../../assets/images/tabs/2.jpeg";
 import img3 from "../../../assets/images/tabs/3.jpeg";
 import img4 from "../../../assets/images/tabs/4.jpeg";
-
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
+import Markdown from "../../../utils/Markdown";
 
 const tabsData = [
 	{
 		id: 1,
-		label: <p>Brokerage Service</p>,
+		label: "Brokerage Service",
 		image: img1,
-		para: (
-			<p>
-				A. K. Khan Securities Limited is dedicated to delivering excellence in brokerage services,
-				offering exciting prospects to both individual and institutional investors. Regardless of your
-				trading frequency or the size of your account, entrusting us with your investments ensures you
-				receive the utmost care and attention. We are committed to providing unparalleled service and
-				opportunities that align with your financial aspirations.With A. K. Khan Securities, your
-				investment journey is in safe hands.
-			</p>
-		),
+		para: `A. K. Khan Securities Limited is dedicated to delivering excellence in brokerage services, offering exciting prospects to both individual and institutional investors. Regardless of your trading frequency or the size of your account, entrusting us with your investments ensures you receive the utmost care and attention. We are committed to providing unparalleled service and opportunities that align with your financial aspirations.With A. K. Khan Securities, your investment journey is in safe hands.`,
 	},
 	{
 		id: 2,
-		label: <p>IPO Application</p>,
+		label: "IPO Application",
 		image: img2,
-		para: (
-			<p>
-				Embark on an investment journey in the flourishing stock market of Bangladesh with IPO
-				Application - your ultimate gateway to accessing and applying for exciting Initial Public
-				Offerings.Our intuitive platform allows you to effortlessly explore the latest IPOs, analyze
-				company profiles, and submit applications seamlessly. Don't let this chance slip away to be a
-				part of Bangladesh's thriving investment landscape.Join IPO Application now and confidently
-				build your portfolio for a prosperous future.
-			</p>
-		),
+		para: `Embark on an investment journey in the flourishing stock market of Bangladesh with IPO Application - your ultimate gateway to accessing and applying for exciting Initial Public Offerings.Our intuitive platform allows you to effortlessly explore the latest IPOs, analyze company profiles, and submit applications seamlessly. Don't let this chance slip away to be a part of Bangladesh's thriving investment landscape.Join IPO Application now and confidently build your portfolio for a prosperous future.`,
 	},
 	{
 		id: 3,
-		label: <p>DP Service</p>,
+		label: "DP Service",
 		image: img3,
-		para: (
-			<p>
-				Best Approach to Security Consultancy Join thousands of satisfied investors who trust DP
-				Service to navigate the complex world of stocks with ease. Don't miss out on lucrative
-				opportunities - start your journey toward financial freedom today with DP Service. Financial
-				Analysis Financial analysis plays a vital role in driving strategic decisions and ensuring
-				sustainable growth. If you need insights, tools, or specific methodologies to enhance your
-				work, feel free to ask!
-			</p>
-		),
+		para: `
+### Best Approach to Security Consultancy
+Join thousands of satisfied investors who trust DP Service to navigate the complex world of stocks with ease. Don't miss out on lucrative opportunities - start your journey toward financial freedom today with DP Service.
+
+### Financial Analysis
+Financial analysis plays a vital role in driving strategic decisions and ensuring sustainable growth. If you need insights, tools, or specific methodologies to enhance your work, feel free to ask!
+    `,
 	},
 	{
 		id: 4,
-		label: <p>Margin Loan Facilities</p>,
+		label: "Margin Loan Facilities",
 		image: img4,
-		para: (
-			<p>
-				Unlock the potential of your stock market investments with our cutting-edge Margin Loan
-				Facilities tailored for the dynamic stock market in Bangladesh.Empower yourself to seize
-				profitable opportunities and maximize returns. With flexible terms and competitive interest
-				rates, leverage your existing portfolio to amplify your investment power.Don’t let financial
-				constraints hold you back – capitalize on the market’s potential with our Margin Loan
-				Facilities and elevate your investment journey to new heights. Contact us today to get
-				started.
-			</p>
-		),
+		para: `Unlock the potential of your stock market investments with our cutting-edge Margin Loan Facilities tailored for the dynamic stock market in Bangladesh.Empower yourself to seize profitable opportunities and maximize returns. With flexible terms and competitive interest rates, leverage your existing portfolio to amplify your investment power.Don’t let financial constraints hold you back – capitalize on the market’s potential with our Margin Loan Facilities and elevate your investment journey to new heights. Contact us today to get started.`,
 	},
 ];
 
 const Services = () => {
 	return (
-		<div className="flex flex-col mx-4 mt-24 lg:mx-16">
+		<div className="flex flex-col mx-4 mt-24 lg:mx-32">
 			<div className="flex flex-col items-center justify-between my-20 lg:flex-row gap-x-8">
-				<h1 className="text-[2.63rem] text-center w-full whitespace-nowrap text-black mb-8">
+				<h1 className="text-[2.2rem] text-center w-full whitespace-nowrap text-black mb-8">
 					<span className="font-semibold">About</span>{" "}
 					<span className="italic font-semibold">Us</span>
 				</h1>
-				<p className="text-justify max-w-prose text-black text-[17px] leading-6 [word-spacing:5px]">
+				<p className="text-justify max-w-prose text-black text-[15px] leading-[1.60rem] [word-spacing:5px]">
 					A K Khan is the sole owner of the information collected on this site. We will not sell,
 					share, or rent this information to others in ways different from what is disclosed in this
 					policy.
@@ -96,7 +63,7 @@ const Services = () => {
 			</div>
 			{/* tab section */}
 			<div className="flex flex-col items-center justify-center">
-				<h2 className="text-[2.63rem] font-semibold text-black mb-8">Our Services</h2>
+				<h2 className="text-[2.2rem] font-semibold text-black mb-8">Our Services</h2>
 				<div>
 					<AnimatedTabs tabs={tabsData} />
 				</div>
@@ -167,21 +134,22 @@ const AnimatedTabs = ({ tabs }) => {
 						}`}
 					>
 						<Fade triggerOnce>
-							<div className="flex flex-col items-start justify-between gap-y-4 lg:flex-row gap-x-8">
-								<div className="w-full">
+							<div className="grid grid-cols-1 gap-4 lg:grid-cols-4 ">
+								<div className="w-full col-span-1">
 									<img
 										src={tab.image}
-										alt=""
+										alt="tab image"
 										className="w-full"
 									/>
 								</div>
-								<div>
-									<p className="block my-2 text-xl font-semibold text-center md:hidden">
+								<div className="col-span-3">
+									<h4 className="block my-2 text-xl font-semibold text-center md:hidden">
 										{tab.label}
-									</p>
-									<p className="text-black text-justify lg:text-[17px] text-[15px] leading-6 [word-spacing:5px]">
-										{tab.para}
-									</p>
+									</h4>
+									<Markdown
+										classStyle={"leading-[1.60rem] text-[15px]"}
+										content={tab.para}
+									/>
 								</div>
 							</div>
 						</Fade>

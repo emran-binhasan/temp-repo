@@ -5,7 +5,7 @@ const Markdown = ({ content, classStyle }) => {
 	return (
 		<div className="relative">
 			<ReactMarkdown
-				className={`leading-6 text-justify [word-spacing:1.5px] lg:[word-spacing:4px] text-black break-words whitespace-pre-line ${classStyle}`}
+				className={`leading-6 text-justify font-sans [word-spacing:1.5px] lg:[word-spacing:4px] text-black break-words whitespace-pre-line ${classStyle}`}
 				remarkPlugins={[remarkGfm]}
 				components={{
 					br: ({ node, ...props }) => <br className="leading-6" />,
@@ -24,6 +24,12 @@ const Markdown = ({ content, classStyle }) => {
 					h3: ({ node, ...props }) => (
 						<h3
 							className="mb-1 text-xl font-semibold text-black"
+							{...props}
+						/>
+					),
+					h4: ({ node, ...props }) => (
+						<h4
+							className="text-black text-justify font-medium text-[18px] leading-6 [word-spacing:5px]"
 							{...props}
 						/>
 					),

@@ -42,7 +42,7 @@ const Management = () => {
 				/>
 			</div>
 			<div className="flex flex-col px-4 lg:mx-32 gap-y-28">
-				<h1 className="text-[1.63rem] lg:text-[2.63rem] mt-8 font-medium uppercase text-center w-full whitespace-nowrap text-black mb-8">
+				<h1 className="text-[1.63rem] lg:text-[2.2rem] mt-8 font-medium uppercase text-center w-full whitespace-nowrap text-black mb-8">
 					Management Team
 				</h1>
 				{data.map((tab) => (

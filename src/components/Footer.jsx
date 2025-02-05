@@ -12,9 +12,10 @@ const Footer = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 	};
+
 	return (
-		<div className="px-4 bg-white md:my-16">
-			<div className="grid mx-2 my-10 mt-16 lg:mx-16 gap-y-8 lg:grid-cols-6 text-darkNill">
+		<div className="bg-white md:my-16">
+			<div className="grid mx-2 my-10 mt-16 lg:mx-32 gap-y-8 lg:grid-cols-6 text-darkNill">
 				<div className="col-span-2 max-w-[300px]">
 					<div className="flex flex-col justify-start gap-y-8">
 						<img
@@ -39,7 +40,7 @@ const Footer = () => {
 							/>
 							<button
 								type="submit"
-								className="absolute right-0  py-2.5 text-white px-2.5 rounded-full bg-darkNill"
+								className="absolute right-0 p-[0.87rem] text-white rounded-full bg-darkNill"
 							>
 								<IoIosArrowForward />
 							</button>
@@ -73,7 +74,7 @@ const Footer = () => {
 				</div>
 				<div className="col-span-1">
 					<h4 className="text-[14px] mb-8 font-medium uppercase">Import Links</h4>
-					<ul className="flex flex-col justify-start text-[13px] lg:text-base gap-y-2.5">
+					<ul className="flex flex-col justify-start text-[13px] lg:text-[14px] gap-y-2.5">
 						<li>
 							<Link
 								to="/"
@@ -144,7 +145,7 @@ const Footer = () => {
 				</div>
 				<div className="col-span-1">
 					<h4 className="text-[14px] mb-8 font-medium uppercase">Services</h4>
-					<ul className="flex flex-col justify-start text-[13px] lg:text-base gap-y-2.5">
+					<ul className="flex flex-col justify-start text-[13px] lg:text-[14px] gap-y-2.5">
 						<li>
 							<Link
 								to="/services"
@@ -182,7 +183,7 @@ const Footer = () => {
 				<div className="w-full col-span-2">
 					<h4 className="text-[14px] mb-8 font-medium uppercase">Contact Us</h4>
 					{/* Contact Information */}
-					<div className="flex gap-y-4 flex-col justify-start font-vietnam text-[13px] lg:text-base">
+					<div className="flex gap-y-4 flex-col justify-start font-vietnam text-[13px] lg:text-[14px]">
 						<div className="">
 							<h4 className="text-[#696969] text-[14px] mb-1.5">Office Address:</h4>
 							<p>Bay's Galleria(2nd floor), 57, Gulshan Avenue-1, Dhaka-1212, Bangladesh</p>
@@ -204,7 +205,7 @@ const Footer = () => {
 					</div>
 				</div>
 			</div>
-			<div className="items-center justify-between mx-2 md:pt-6 lg:mx-16 sm:flex">
+			<div className="items-center justify-between mx-2 md:pt-6 lg:mx-32 sm:flex">
 				<div className="flex flex-row items-center justify-center mt-4 sm:justify-start lg:mt-10 gap-x-8">
 					<FaFacebook
 						className="rounded-full p-2.5 border border-darkNill text-darkNill h-fit w-fit"
@@ -220,7 +221,9 @@ const Footer = () => {
 					/>
 				</div>
 				<div className="flex flex-row items-center mt-4 lg:mt-10 gap-x-8">
-					<p className="text-[#696969] mx-auto">Copyright ©2024 A. K. Khan Securities Ltd.</p>
+					<p className="text-[#696969] mx-auto">
+						Copyright ©{new Date().getFullYear()} A. K. Khan Securities Ltd.
+					</p>
 				</div>
 			</div>
 		</div>

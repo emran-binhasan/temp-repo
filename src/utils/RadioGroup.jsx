@@ -24,7 +24,7 @@ const RadioGroup = ({ classStyle, label, name, options, value, onChange, require
 							required={required}
 						/>
 						<span className="flex items-center justify-center w-4 h-4 border-2 border-gray-500 rounded-full peer-checked:border-nill peer-checked:bg-nill">
-							<div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+							<div className="w-2.5 h-2.5 rounded-full"></div>
 						</span>
 						<span className="text-xs font-semibold md:text-sm md:mt-0">{option.label}</span>
 					</label>

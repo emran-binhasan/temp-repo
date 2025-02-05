@@ -23,9 +23,9 @@ const Contact = () => {
                         ${isScrolled ? "scale-105" : "scale-100"}`}
 				/>
 			</div>
-			<div className="grid grid-cols-1 mx-4 mt-16 lg:mx-16 lg:grid-cols-2 gap-x-28 gap-y-16">
+			<div className="grid grid-cols-1 mx-4 mt-16 lg:mx-32 lg:grid-cols-2 gap-x-28 gap-y-16">
 				<div>
-					<h1 className="text-[1.63rem] mb-12 leading-[2.2rem] md:leading-[2.7rem] lg:text-[2.63rem] font-semibold w-full whitespace-nowrap text-black">
+					<h1 className="text-[1.63rem] mb-12 leading-[2.2rem] md:leading-[2.7rem] lg:text-[2.2rem] font-semibold w-full whitespace-nowrap text-black">
 						Get in Touch with <br /> A. K. Khan Securities Ltd.
 					</h1>
 					<div className="flex flex-col gap-y-8">

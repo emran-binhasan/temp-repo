@@ -7,6 +7,7 @@ import FloatingButton from "../../../utils/FloatingButton";
 import { IoIosArrowBack } from "react-icons/io";
 import RadioGroup from "../../../utils/RadioGroup";
 import Compressor from "compressorjs";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 const AccountNominees = () => {
 	const pageId = "Nominees";
@@ -141,9 +142,21 @@ const AccountNominees = () => {
 						key={index}
 						className="grid grid-cols-1 gap-4 lg:grid-cols-2"
 					>
-						<h4 className="w-full col-span-1 py-3 text-lg font-semibold border-b lg:col-span-2 border-dhusor">
-							{index + 1} Nominee&apos;s Information
-						</h4>
+						<div className="w-full col-span-1 border-b lg:col-span-2 border-dhusor">
+							<div className="flex items-center justify-between">
+								<h4 className="py-3 text-lg font-semibold ">
+									{index + 1} Nominee&apos;s Information
+								</h4>
+								{formData.nominees.length > 1 && index !== 0 && (
+									<button
+										className="text-red-500"
+										onClick={handleRemoveNominee}
+									>
+										<FaDeleteLeft size={24} />
+									</button>
+								)}
+							</div>
+						</div>
 						<InputField
 							onChange={(e) => handleChange(index, "nominee_name", e.target.value)}
 							label="Nominee Name (As per NID"
@@ -295,7 +308,7 @@ const AccountNominees = () => {
 				))}
 			</div>
 
-			<div className="flex flex-col items-center justify-end gap-4 mt-12">
+			<div className="grid items-end justify-end grid-cols-2 gap-4 mt-12 lg:flex">
 				<FloatingButton
 					icon={IoIosArrowBack}
 					borderColor="white"
@@ -303,7 +316,7 @@ const AccountNominees = () => {
 					hoverRadius={25}
 					buttonSpeed={0.3}
 					iconSpeed={0.9}
-					classStyle={"border border-black h-[2.580rem] w-[7.580rem]"}
+					classStyle={"border border-black h-[2.580rem] w-full lg:w-[7.580rem]"}
 					handleClick={goBack}
 				/>
 				<Button

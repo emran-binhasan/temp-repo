@@ -107,7 +107,7 @@ const ThirdSec = () => {
 						<div className="absolute left-0 z-20 w-full -top-48">
 							<Marquees />
 						</div>
-						<div className="flex flex-col gap-y-6 lg:flex-row mx-4 lg:mx-16 justify-around gap-x-16 items-start mt-[20rem] sm:mt-[30rem] lg:mt-[28rem]">
+						<div className="flex flex-col gap-y-6 lg:flex-row mx-4 lg:mx-32 justify-around gap-x-16 items-start mt-[20rem] sm:mt-[30rem] lg:mt-[28rem]">
 							<div className="flex-1">
 								<img
 									src={img5}
@@ -116,10 +116,10 @@ const ThirdSec = () => {
 								/>
 							</div>
 							<div className="flex-1">
-								<h1 className="text-[2.50rem] text-left sm:text-justify md:text-left leading-[2.8rem] font-bold text-white">
+								<h1 className="text-[2.20rem] text-left sm:text-justify md:text-left leading-[2.8rem] font-bold text-white">
 									A Game-Changer for My Investment Strategy!
 								</h1>
-								<p className="text-[#FFFFFFD4] text-justify mt-4 lg:mt-6 lg:text-[17px] text-[15px]">
+								<p className="text-[#FFFFFFD4] text-justify mt-4 lg:mt-6 leading-[1.60rem] text-[15px]">
 									As an investor, I’ve always been cautious, but since partnering with
 									AKKHAN Securities Ltd, my approach to the capital markets has completely
 									transformed. The insights, analysis, and tools they provide have given me

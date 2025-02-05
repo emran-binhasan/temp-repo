@@ -19,11 +19,11 @@ const AccountType = () => {
 		<div className="text-dhusor">
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-14">
 				<div className="flex flex-col justify-between">
-					<div className="bg-[#CFE8FF] px-6 py-10 rounded-xl">
+					<div className="bg-[#CFE8FF] h-full px-6 py-10 rounded-xl">
 						<h4 className="mb-4 text-base font-medium">
 							Please keep the Soft copy / Picture of the following documents ready:
 						</h4>
-						<ul className="flex flex-col gap-y-4">
+						<ul className="flex flex-col h-full gap-y-4">
 							{documents.map((doc) => (
 								<li
 									key={doc.id}
@@ -39,22 +39,18 @@ const AccountType = () => {
 							))}
 						</ul>
 					</div>
-					<form className="flex flex-col gap-y-3">
+					{/* <form className="flex flex-col gap-y-3">
 						<h4 className="text-sm font-semibold">Search by Mobile Number</h4>
 						<input
 							type="text"
 							value={"Enter mobile number"}
 							className="w-full p-2 bg-white rounded-md focus:outline-0 focus:ring-[3px] duration-300 focus:ring-blue-400/50 placeholder:text-hDhusor text-dhusor"
 						/>
-						{/* <input
-							type="submit"
-							value="Continue Previous Application"
-						/> */}
 						<Button
 							content="Continue Previous Application"
 							type="submit"
 						/>
-					</form>
+					</form> */}
 				</div>
 				<div>
 					<TypeComponents />
