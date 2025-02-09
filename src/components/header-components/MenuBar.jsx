@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaPhone, FaUser } from "react-icons/fa6";
 import FloatingButton from "../../utils/FloatingButton";
 import { IoSearch } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import Button from "../../utils/Button";
+import SearchModal from "./SearchModal";
 
 const MenuBar = ({ isScrolled }) => {
+	const [isSearchOpen, setIsSearchOpen] = useState(false);
+
 	return (
 		<div
 			className={`flex items-center justify-end gap-x-3
@@ -63,6 +66,13 @@ const MenuBar = ({ isScrolled }) => {
 				classStyle={`lg:w-[2.580rem] lg:h-[2.580rem] w-[2.790rem] h-[2.790rem] ${
 					isScrolled ? "border border-black" : "border border-white"
 				}`}
+				handleClick={() => setIsSearchOpen(true)}
+			/>
+
+			{/* Search Modal */}
+			<SearchModal
+				isOpen={isSearchOpen}
+				onClose={() => setIsSearchOpen(false)}
 			/>
 		</div>
 	);

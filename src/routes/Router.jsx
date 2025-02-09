@@ -15,6 +15,7 @@ import AccountBank from "../pages/BOAccount/account_pages/AccountBank";
 import AccountNominees from "../pages/BOAccount/account_pages/AccountNominees";
 import AccountComplete from "../pages/BOAccount/account_pages/AccountComplete";
 import Contact from "../pages/Contact/Contact";
+import SearchResults from "../pages/search/SearchResult";
 
 const Router = createBrowserRouter([
 	{
@@ -56,6 +57,10 @@ const Router = createBrowserRouter([
 			{
 				path: "/contact",
 				element: <Contact />,
+			},
+			{
+				path: "/search-results",
+				element: <SearchResults />,
 			},
 			{
 				path: "/open-bo-account",
