@@ -4,7 +4,6 @@ import Markdown from "../../../utils/Markdown";
 
 const Posts = () => {
 	const [data, setData] = useState([]);
-	console.log("data: ", data);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {

@@ -2,17 +2,19 @@ import React from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Button from "../../../utils/Button";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Don't forget to import the CSS
+import BackBtn from "../../../utils/BackBtn";
+import { FaAsterisk } from "react-icons/fa6";
 
 const AccountComplete = () => {
 	const navigate = useNavigate();
 
-	// Retrieve and parse form data (Array of Objects)
 	const formDataArray = JSON.parse(localStorage.getItem("formData")) || [];
 
-	// Merge multiple objects into a single object
 	const mergedData = Object.assign({}, ...formDataArray);
 
-	// Convert Base64 to File
 	const base64ToFile = (base64String, fileName) => {
 		const arr = base64String.split(",");
 		const mime = arr[0].match(/:(.*?);/)[1];
@@ -25,15 +27,14 @@ const AccountComplete = () => {
 		return new File([u8arr], fileName, { type: mime });
 	};
 
-	const submitData = async () => {
+	const submitData = async (e) => {
+		e.preventDefault();
 		const form = new FormData();
 
-		// Append all fields to FormData
 		for (const key in mergedData) {
 			if (mergedData[key]) {
-				// Check if the value is a Base64 string (image)
 				if (typeof mergedData[key] === "string" && mergedData[key].startsWith("data:image")) {
-					const file = base64ToFile(mergedData[key], `${key}.png`); // Convert Base64 to File
+					const file = base64ToFile(mergedData[key], `${key}.png`);
 					form.append(key, file);
 				} else {
 					form.append(key, mergedData[key]);
@@ -41,38 +42,68 @@ const AccountComplete = () => {
 			}
 		}
 
-		// Debugging: Log FormData entries
-		for (const pair of form.entries()) {
-			console.log(pair[0], pair[1]);
-		}
-
-		try {
-			const response = await axios.post(
-				"https://akk-khan-final.lifextory.com/api/open-bo-account",
-				form,
-				{
+		toast.promise(
+			axios
+				.post("https://akk-khan-final.lifextory.com/api/open-bo-account", form, {
 					headers: {
 						"Content-Type": "multipart/form-data",
 					},
-				}
-			);
+				})
+				.then((response) => {
+					console.log("Response:", response.data);
 
-			console.log("Response:", response.data);
-		} catch (error) {
-			console.error("Error:", error.message);
-		}
-	};
+					// Clear localStorage
+					localStorage.removeItem("formData");
 
-	const goBack = () => {
-		navigate(-1);
+					// Navigate to a different page (e.g., success page)
+					navigate("/");
+
+					return response; // Ensure toast.promise receives a resolved response
+				}),
+			{
+				pending: "Submitting your form...",
+				success: "Account created successfully!",
+				error: "Something went wrong. Please try again.",
+			}
+		);
 	};
 
 	return (
 		<div>
-			<button onClick={submitData}>Submit</button>
-			<button onClick={goBack}>
-				<IoIosArrowBack /> Go Back
-			</button>
+			<form onSubmit={submitData}>
+				<div className="space-y-1 md:space-y-2">
+					<label
+						htmlFor="check"
+						className="flex items-center justify-start text-xs font-semibold md:text-sm"
+					>
+						<FaAsterisk className="w-2.5 h-2.5 md:w-3 md:h-3" />
+						Check the box below to complete your account
+					</label>
+					<div className="ml-2">
+						<input
+							type="checkbox"
+							name="check"
+							required
+							id="check"
+						/>
+						<label
+							for="check"
+							id="check"
+							className="ml-2"
+						>
+							I accept
+						</label>
+					</div>
+				</div>
+				{/* submit button */}
+				<div className="flex items-center justify-end mt-12 lg:col-span-2 gap-x-4">
+					<BackBtn />
+					<Button
+						type={"submit"}
+						content="Submit"
+					/>
+				</div>
+			</form>
 		</div>
 	);
 };

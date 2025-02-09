@@ -135,6 +135,14 @@ const Slider = () => {
 
 	return (
 		<div className="relative bg-black">
+			{isLoading && (
+				<div className="h-screen bg-white fixed inset-0 z-[9999] w-screen flex justify-center items-center">
+					<div className="font-anton w-[200px] md:w-[230px] text-white bg-nill py-2 shadow-xl shadow-black/40 rounded-lg flex flex-col justify-center items-center text-justify">
+						<h1 className="text-5xl md:text-6xl border-b-2 mb-1 border-white">A.K.Khan</h1>
+						<p className="text-lg tracking-[0.2em]">Securities Ltd</p>
+					</div>
+				</div>
+			)}
 			{/* Main Slider */}
 			{!isLoading && (
 				<div
@@ -161,7 +169,7 @@ const Slider = () => {
 								</div>
 							</div>
 							<img
-								src={slide.image}
+								src={slide.image_url}
 								alt={slide.title}
 								className="object-cover w-full h-full brightness-[0.8]"
 							/>

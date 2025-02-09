@@ -30,6 +30,9 @@ const Marquees = () => {
 			"(min-width: 400px)": {
 				slides: { perView: 1, spacing: 10 },
 			},
+			"(min-width: 640px)": {
+				slides: { perView: 2, spacing: 20 },
+			},
 			"(min-width: 1000px)": {
 				slides: { perView: 3, spacing: 20 },
 			},

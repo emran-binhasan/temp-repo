@@ -7,10 +7,37 @@ import img2 from "../assets/images/footer/DSE.png";
 import img3 from "../assets/images/footer/CSE.png";
 import img4 from "../assets/images/footer/CDBL.png";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Footer = () => {
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		const form = e.target;
+		const email_address = form.email_address.value;
+
+		if (!email_address) {
+			toast.error("Please enter your email address.");
+			return;
+		}
+
+		toast.promise(
+			axios.post(
+				"https://akk-khan-final.lifextory.com/api/news-letter",
+				{ email_address },
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			),
+			{
+				pending: "Please wait...",
+				success: "Subscribed to newsletter successfully",
+				error: "Something went wrong. Please try again.",
+			}
+		);
 	};
 
 	return (
@@ -35,7 +62,7 @@ const Footer = () => {
 							<input
 								type="text"
 								placeholder="Your email to start"
-								name="email"
+								name="email_address"
 								className="w-full placeholder:text-darkNill py-2.5 pl-2 bg-transparent rounded-full active:outline-0 focus:outline-0"
 							/>
 							<button

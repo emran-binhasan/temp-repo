@@ -127,7 +127,7 @@ const AccountNominees = () => {
 		updatedData.push({ ...formData, id: pageId });
 		localStorage.setItem("formData", JSON.stringify(updatedData));
 
-		navigate("/open-bo-account/nominees");
+		navigate("/open-bo-account/complete");
 	};
 
 	const goBack = () => {

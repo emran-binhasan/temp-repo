@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Cursor from "../components/Cursor";
 // import PageTransition from "../utils/PageTransition";
+import { Slide, ToastContainer } from "react-toastify";
 
 const MainLayout = () => {
 	return (
@@ -18,6 +19,20 @@ const MainLayout = () => {
 					<Footer />
 				</div>
 			</div>
+			<ToastContainer
+				position="top-right"
+				autoClose={4000}
+				hideProgressBar={true}
+				closeOnClick
+				pauseOnHover
+				draggable
+				theme="colored"
+				transition={Slide}
+				// style={{
+				// 	fontSize: "16px",
+				// 	fontWeight: "bold",
+				// }}
+			/>
 		</div>
 	);
 };

@@ -107,7 +107,7 @@ const ThirdSec = () => {
 						<div className="absolute left-0 z-20 w-full -top-48">
 							<Marquees />
 						</div>
-						<div className="flex flex-col gap-y-6 lg:flex-row mx-4 lg:mx-32 justify-around gap-x-16 items-start mt-[20rem] sm:mt-[30rem] lg:mt-[28rem]">
+						<div className="flex flex-col gap-y-6 lg:flex-row mx-4 lg:mx-32 justify-around gap-x-16 items-start mt-[23rem] sm:mt-[17rem] lg:mt-[26rem]">
 							<div className="flex-1">
 								<img
 									src={img5}

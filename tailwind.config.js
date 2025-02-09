@@ -8,6 +8,7 @@ export default {
 				sans: ["Be Vietnam Pro", "serif"],
 				bebas: ["Bebas Neue", "serif"],
 				inter: ["Inter", "serif"],
+				anton: ["Anton", "serif"],
 			},
 			colors: {
 				nill: "#1a2b88",
