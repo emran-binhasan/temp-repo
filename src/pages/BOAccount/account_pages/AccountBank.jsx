@@ -20,7 +20,6 @@ const AccountBank = () => {
 		ac_holder_swift_code_of_bank: "",
 		ac_holder_checkbook_image_of_bank: null,
 	});
-	console.log("formData: ", formData);
 
 	useEffect(() => {
 		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
@@ -84,15 +83,12 @@ const AccountBank = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		console.log("Selected values:", formData);
-
 		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
 		const updatedData = savedData.filter((page) => page.id !== pageId);
 
 		updatedData.push({ ...formData, id: pageId });
 		localStorage.setItem("formData", JSON.stringify(updatedData));
 
-		console.log("Form submitted. Updated data:", updatedData);
 		navigate("/open-bo-account/nominees");
 	};
 

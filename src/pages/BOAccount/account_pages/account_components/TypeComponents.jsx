@@ -32,28 +32,8 @@ const TypeComponents = () => {
 		}
 	}, [pageId]);
 
-	// const handleSubmit = async (e) => {
-	// 	e.preventDefault();
-
-	// 	// const url = "http://localhost:5000/api/v1/bo-account";
-	// 	console.log(formData);
-
-	// 	try {
-	// 		const res = await axios.post(url, formData);
-	// 		if (res) {
-	// 			console.log(res);
-
-	// 			// navigate to the next page after successful submission
-	// 			navigate("/open-bo-account/basic");
-	// 		}
-	// 	} catch (error) {
-	// 		// Handle error
-	// 	}
-	// };
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		console.log("Selected values:", formData);
 
 		const savedData = JSON.parse(localStorage.getItem("formData")) || [];
 		const updatedData = savedData.filter((page) => page.id !== pageId);
@@ -61,7 +41,6 @@ const TypeComponents = () => {
 		updatedData.push({ ...formData, id: pageId });
 		localStorage.setItem("formData", JSON.stringify(updatedData));
 
-		console.log("Form submitted. Updated data:", updatedData);
 		navigate("/open-bo-account/basic");
 	};
 

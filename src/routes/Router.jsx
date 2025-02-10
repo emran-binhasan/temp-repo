@@ -16,11 +16,13 @@ import AccountNominees from "../pages/BOAccount/account_pages/AccountNominees";
 import AccountComplete from "../pages/BOAccount/account_pages/AccountComplete";
 import Contact from "../pages/Contact/Contact";
 import SearchResults from "../pages/search/SearchResult";
+import Error from "../pages/error/Error";
 
 const Router = createBrowserRouter([
 	{
 		path: "/",
 		element: <MainLayout />,
+		errorElement: <Error />,
 		children: [
 			{
 				path: "/",

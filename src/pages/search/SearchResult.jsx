@@ -4,8 +4,8 @@ import img1 from "../../assets/images/marquee/1.jpeg";
 import img2 from "../../assets/images/marquee/2.jpeg";
 import img3 from "../../assets/images/marquee/3.jpeg";
 import img4 from "../../assets/images/marquee/4.jpeg";
-import banner from "../../assets/images/banners/ipo.jpg";
 import Markdown from "../../utils/Markdown";
+import useScrollToTop from "../../utils/useScrollToTop";
 
 const data = [
 	{
@@ -38,6 +38,7 @@ const SearchResults = () => {
 	const location = useLocation();
 	const query = new URLSearchParams(location.search).get("query");
 	const [results, setResults] = useState([]);
+	useScrollToTop();
 
 	useEffect(() => {
 		if (query) {
@@ -50,29 +51,38 @@ const SearchResults = () => {
 	}, [query]);
 
 	return (
-		<div className="p-6 mt-20">
-			<h1 className="text-2xl font-semibold mb-4">Search Results for "{query}"</h1>
+		<div className="flex flex-col mx-4 md:mx-6 lg:mx-32 gap-y-28">
+			<div className="mt-36">
+				<h1 className="mb-4 text-3xl font-medium">Are you looking for: "{query}"</h1>
 
-			{results.length > 0 ? (
-				<div className="">
-					{results.map((item) => (
-						<div
-							key={item.id}
-							className="border rounded-lg p-4 w-full"
-						>
-							<img
-								src={item.image}
-								alt={item.title}
-								className="w-full h-40 object-cover mb-2"
-							/>
-							<h2 className="text-xl font-semibold">{item.title}</h2>
-							<Markdown content={item.body} />
-						</div>
-					))}
-				</div>
-			) : (
-				<p className="text-gray-500">No results found.</p>
-			)}
+				{results.length > 0 ? (
+					<div className="flex flex-col mt-20 gap-y-16">
+						{results.map((tab) => (
+							<div
+								key={tab.id}
+								className="flex flex-col gap-y-4 lg:flex-row gap-x-16"
+							>
+								<img
+									src={tab.image}
+									alt=""
+									className="lg:w-[40%] w-[100%] aspect-square object-cover"
+								/>
+								<div className="flex flex-col items-start justify-center lg:w-2/3 gap-y-4">
+									<h2 className="text-[1.63rem] lg:text-[2.2rem] font-semibold w-full whitespace-nowrap text-black">
+										{tab.title}
+									</h2>
+									{/* Body rendered as Markdown */}
+									<Markdown content={tab.body} />
+								</div>
+							</div>
+						))}
+					</div>
+				) : (
+					<p className="mt-10 font-normal text-hDhusor">
+						It seems we can’t find what you’re looking for. Perhaps searching can help.
+					</p>
+				)}
+			</div>
 		</div>
 	);
 };

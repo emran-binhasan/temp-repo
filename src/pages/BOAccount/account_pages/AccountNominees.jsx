@@ -319,11 +319,13 @@ const AccountNominees = () => {
 					classStyle={"border border-black h-[2.580rem] w-full lg:w-[7.580rem]"}
 					handleClick={goBack}
 				/>
-				<Button
-					type={"button"}
-					content={"Add Another Nominee"}
-					handleClick={handleAddNominee}
-				/>
+				{formData.nominees.length < 3 && (
+					<Button
+						type={"button"}
+						content={"Add Another Nominee"}
+						handleClick={handleAddNominee}
+					/>
+				)}
 				{formData.nominees.length > 1 && (
 					<Button
 						type={"button"}

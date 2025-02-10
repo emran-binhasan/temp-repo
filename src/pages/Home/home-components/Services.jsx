@@ -78,7 +78,6 @@ const AnimatedTabs = ({ tabs }) => {
 	const tabRefs = useRef([]);
 
 	useEffect(() => {
-		// Set initial slider position
 		if (tabRefs.current[activeTab]) {
 			const tabElement = tabRefs.current[activeTab];
 			setSliderStyle({

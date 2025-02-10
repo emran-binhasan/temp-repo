@@ -1,15 +1,28 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion"; // For animation
-import modalImg from "../../../assets/images/modal.png";
+import { motion } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
 
 const SpecialOffersModal = ({ isOpen, onClose }) => {
 	const [timeLeft, setTimeLeft] = useState("");
+	const [data, setData] = useState([]);
+
+	useEffect(() => {
+		try {
+			fetch(`${import.meta.env.VITE_API_URL}/notice-popup`)
+				.then((res) => res.json())
+				.then((data) => {
+					setData(data.data);
+					setIsLoading(false);
+				});
+		} catch (error) {
+			setIsLoading(false);
+		}
+	}, []);
 
 	useEffect(() => {
 		if (!isOpen) return;
 
-		const offerEndDate = new Date("2025-02-10T23:59:59").getTime(); // Deadline: January 10, 2025
+		const offerEndDate = new Date("2025-02-10T23:59:59").getTime();
 
 		const timer = setInterval(() => {
 			const now = new Date().getTime();
@@ -42,9 +55,8 @@ const SpecialOffersModal = ({ isOpen, onClose }) => {
 		>
 			<div className="bg-white m-2  shadow-xl max-w-[21rem] lg:max-w-[38rem] w-full flex overflow-hidden relative">
 				{/* Left Image Section */}
-
 				<img
-					src={modalImg}
+					src={data.image_url}
 					alt="Special Offer"
 					className=""
 				/>
@@ -57,7 +69,6 @@ const SpecialOffersModal = ({ isOpen, onClose }) => {
 						size={26}
 					/>
 				</button>
-
 				{/* Right Content Section */}
 			</div>
 		</motion.div>

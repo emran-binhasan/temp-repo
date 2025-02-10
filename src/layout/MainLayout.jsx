@@ -2,15 +2,13 @@ import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Cursor from "../components/Cursor";
-// import PageTransition from "../utils/PageTransition";
 import { Slide, ToastContainer } from "react-toastify";
 
 const MainLayout = () => {
 	return (
 		<div className="relative overflow-hidden">
-			{/* <PageTransition /> */}
 			<div className="min-h-screen overflow-hidden bg-white cursor-auto">
-				{/* <Cursor/> */}
+				<Cursor />
 				<Header />
 				<div className="pb-28 bg-[#f4f4f4]">
 					<Outlet />
@@ -28,10 +26,6 @@ const MainLayout = () => {
 				draggable
 				theme="colored"
 				transition={Slide}
-				// style={{
-				// 	fontSize: "16px",
-				// 	fontWeight: "bold",
-				// }}
 			/>
 		</div>
 	);

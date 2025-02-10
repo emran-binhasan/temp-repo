@@ -1,18 +1,15 @@
 import React from "react";
-import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "../../../utils/Button";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Don't forget to import the CSS
+import "react-toastify/dist/ReactToastify.css";
 import BackBtn from "../../../utils/BackBtn";
 import { FaAsterisk } from "react-icons/fa6";
 
 const AccountComplete = () => {
 	const navigate = useNavigate();
-
 	const formDataArray = JSON.parse(localStorage.getItem("formData")) || [];
-
 	const mergedData = Object.assign({}, ...formDataArray);
 
 	const base64ToFile = (base64String, fileName) => {
@@ -50,15 +47,11 @@ const AccountComplete = () => {
 					},
 				})
 				.then((response) => {
-					console.log("Response:", response.data);
-
-					// Clear localStorage
 					localStorage.removeItem("formData");
 
-					// Navigate to a different page (e.g., success page)
 					navigate("/");
 
-					return response; // Ensure toast.promise receives a resolved response
+					return response;
 				}),
 			{
 				pending: "Submitting your form...",

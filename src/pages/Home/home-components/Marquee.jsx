@@ -6,20 +6,31 @@ const animation = { duration: 85000, easing: (t) => t };
 
 const Marquees = () => {
 	const [data, setData] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		try {
-			fetch(`${import.meta.env.VITE_API_URL}/get-slider?placement=homeSecond`)
-				.then((res) => res.json())
-				.then((data) => {
-					setData(data.data);
-					setIsLoading(false);
-				});
-		} catch (error) {
-			console.log("error: ", error.message);
-			setIsLoading(false);
-		}
+		setIsLoading(true);
+		const fetchData = async () => {
+			try {
+				const response = await fetch(
+					`${import.meta.env.VITE_API_URL}/get-slider?placement=homeSecond`
+				);
+
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+
+				const data = await response.json();
+				setData(data.data);
+				setIsLoading(false);
+				setError(false);
+			} catch (error) {
+				setError(true);
+				setIsLoading(false);
+			}
+		};
+
+		fetchData();
 	}, []);
 
 	const [sliderRef] = useKeenSlider({

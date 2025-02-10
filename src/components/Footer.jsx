@@ -41,7 +41,7 @@ const Footer = () => {
 	};
 
 	return (
-		<div className="bg-white md:my-16">
+		<div className="bg-white md:py-16">
 			<div className="grid mx-2 my-10 mt-16 lg:mx-32 gap-y-8 lg:grid-cols-6 text-darkNill">
 				<div className="col-span-2 max-w-[300px]">
 					<div className="flex flex-col justify-start gap-y-8">

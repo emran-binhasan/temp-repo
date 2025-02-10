@@ -4,20 +4,31 @@ import Markdown from "../../../utils/Markdown";
 
 const Posts = () => {
 	const [data, setData] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const [error, setError] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		try {
-			fetch(`${import.meta.env.VITE_API_URL}/blogs`)
-				.then((res) => res.json())
-				.then((data) => {
-					setData(data.data);
-					setIsLoading(false);
-				});
-		} catch (error) {
-			console.log("error: ", error.message);
-			setIsLoading(false);
-		}
+		setIsLoading(true);
+
+		const fetchData = async () => {
+			try {
+				const response = await fetch(`${import.meta.env.VITE_API_URL}/blogs`);
+
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+
+				const data = await response.json();
+				setData(data.data);
+				setIsLoading(false);
+				setError(false);
+			} catch (error) {
+				setError(true);
+				setIsLoading(false);
+			}
+		};
+
+		fetchData();
 	}, []);
 
 	return (
@@ -41,6 +52,14 @@ const Posts = () => {
 					</Link>
 				))}
 			</div>
+			{error && (
+				<div className="flex items-center justify-center">
+					<div className="flex flex-col items-center justify-center text-black gap-y-2">
+						<h3 className="text-xl font-medium">Error fetching data</h3>
+						<p>Please refresh the page</p>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };

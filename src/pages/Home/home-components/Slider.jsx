@@ -39,20 +39,31 @@ function ThumbnailPlugin(mainRef) {
 
 const Slider = () => {
 	const [slides, setSlides] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const [error, setError] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		try {
-			fetch(`${import.meta.env.VITE_API_URL}/get-slider?placement=homeHero`)
-				.then((res) => res.json())
-				.then((data) => {
-					setSlides(data.data);
-					setIsLoading(false);
-				});
-		} catch (error) {
-			console.log("error: ", error.message);
-			setIsLoading(false);
-		}
+		setIsLoading(true);
+
+		const fetchData = async () => {
+			try {
+				const response = await fetch(`${import.meta.env.VITE_API_URL}/get-slider?placement=homeHero`);
+
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+
+				const data = await response.json();
+				setSlides(data.data);
+				setIsLoading(false);
+				setError(false);
+			} catch (error) {
+				setError(true);
+				setIsLoading(false);
+			}
+		};
+
+		fetchData();
 	}, []);
 
 	const [sliderRef, instanceRef] = useKeenSlider(
@@ -138,7 +149,7 @@ const Slider = () => {
 			{isLoading && (
 				<div className="h-screen bg-white fixed inset-0 z-[9999] w-screen flex justify-center items-center">
 					<div className="font-anton w-[200px] md:w-[230px] text-white bg-nill py-2 shadow-xl shadow-black/40 rounded-lg flex flex-col justify-center items-center text-justify">
-						<h1 className="text-5xl md:text-6xl border-b-2 mb-1 border-white">A.K.Khan</h1>
+						<h1 className="mb-1 text-5xl border-b-2 border-white md:text-6xl">A.K.Khan</h1>
 						<p className="text-lg tracking-[0.2em]">Securities Ltd</p>
 					</div>
 				</div>
