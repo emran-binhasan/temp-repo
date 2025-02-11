@@ -23,7 +23,7 @@ const Marquees = () => {
         const res = await response.json();
         setMarqueData(res.data);
       } catch (error) {
-        console.error('Error fetching slider data:', error);
+        // console.error('Error fetching slider data:', error);
       } finally {
         setIsLoading(false);
       }

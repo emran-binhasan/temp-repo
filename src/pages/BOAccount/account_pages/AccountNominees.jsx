@@ -80,7 +80,7 @@ const AccountNominees = () => {
               reader.readAsDataURL(result);
             },
             error(err) {
-              console.error("Compression failed:", err);
+              // console.error("Compression failed:", err);
             },
           });
         } else {
@@ -128,7 +128,7 @@ const AccountNominees = () => {
       optionalFields.forEach((field) => delete filteredData[field]);
     }
 
-    console.log("Selected values:", filteredData);
+    // console.log("Selected values:", filteredData);
 
     // Retrieve existing data from localStorage or initialize an empty array
     const savedData = JSON.parse(localStorage.getItem("formData")) || [];
@@ -140,7 +140,6 @@ const AccountNominees = () => {
     // Save the updated data back to localStorage
     localStorage.setItem("formData", JSON.stringify(updatedData));
 
-    console.log("Form submitted. Updated data:", updatedData);
     navigate("/open-bo-account/complete");
   };
 

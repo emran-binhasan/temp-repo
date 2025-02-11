@@ -70,7 +70,7 @@ const AccountBasic = () => {
 							reader.readAsDataURL(result);
 						},
 						error(err) {
-							console.error("Compression failed:", err);
+							// console.error("Compression failed:", err);
 						},
 					});
 				} else {
