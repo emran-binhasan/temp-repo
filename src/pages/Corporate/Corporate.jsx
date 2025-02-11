@@ -42,7 +42,7 @@ const Corporate = () => {
 					Corporate Profile
 				</h1>
 				<div
-					className="flex flex-col p-4 mx-2 md:mx-6 lg:mx-32 gap-y-28"
+					className="flex flex-col p-4 mx-2 md:mx-6 lg:mx-32 lg:gap-y-24 gap-y-10"
 					style={{
 						backgroundImage: `url(${bg})`,
 						backgroundSize: "cover",

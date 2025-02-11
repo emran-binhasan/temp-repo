@@ -52,7 +52,7 @@ const Vision = () => {
                         ${isScrolled ? "scale-105" : "scale-100"}`}
 				/>
 			</div>
-			<div className="flex flex-col mx-4 lg:mx-32 gap-y-10 lg:gap-y-28">
+			<div className="flex flex-col mx-4 lg:mx-32 gap-y-10 lg:lg:gap-y-24 gap-y-10">
 				<h1 className="text-[1.63rem] uppercase mt-4 text-center lg:text-[2.2rem] font-semibold w-full whitespace-nowrap text-black">
 					Vision & Mission
 				</h1>

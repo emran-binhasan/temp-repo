@@ -17,17 +17,17 @@ const MenuBar = ({ isScrolled }) => {
 		>
 			<button
 				onClick={() => (window.location.href = "tel:+88028833510")}
-				className={`px-[0.15rem] bg-white relative overflow-hidden py-[0.130rem] border rounded-full 
+				className={`px-[0.15rem] lg:bg-white  relative overflow-hidden py-[0.130rem] border rounded-full 
 			${isScrolled ? "border-black" : "border-white text-black"} 
 			before:content-[''] before:absolute before:-top-0 before:left-0 before:w-full before:h-full before:bg-black 
 			before:translate-y-[-100%] hover:before:translate-y-[100%] before:transition-transform before:duration-1000 before:ease-in-out`}
 			>
 				<span
 					className={`flex p-[0.60rem] lg:px-[1.60rem] lg:py-[0.400rem] relative z-20 items-center justify-center rounded-full gap-x-2 ${
-						isScrolled ? "bg-white" : "bg-white"
+						isScrolled ? "bg-white" : "lg:bg-white"
 					} `}
 				>
-					<FaPhone
+					<FaPhone className={`${isScrolled ? 'text-black':'text-white lg:text-black'}`}
 						size={20}
 						strokeWidth={1.2}
 					/>

@@ -212,7 +212,7 @@ const ThirdSec = () => {
 									</div>
 									<h2
 										ref={headingRef}
-										className="ml-28 sm:mk-[6rem] lg:ml-[4rem] text-[3rem] sm:text-[4.2rem] md:text-[4.8rem] lg:text-[5rem] drop-shadow-md tracking-[-0.05em] sm:tracking-[-0.08em] 
+										className="ml-28 sm:mk-[6rem] lg:ml-[4rem] text-[3rem] sm:text-[4.2rem] md:text-[4.8rem] lg:text-[5rem] drop-shadow-md tracking-[-0.15em] sm:tracking-[-0.08em] 
   [word-spacing:0.5rem] leading-[.3rem] sm:leading-[3.5rem] md:leading-[4rem] lg:leading-[4.5rem] 
   stretched-text uppercase font-medium relative overflow-visible text-white text-wrap
   whitespace-nowrap sm:whitespace-normal"

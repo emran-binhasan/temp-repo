@@ -52,7 +52,7 @@ const Downloads = () => {
                         ${isScrolled ? "scale-105" : "scale-100"}`}
 				/>
 			</div>
-			<div className="flex flex-col mx-4 lg:mx-32 gap-y-28">
+			<div className="flex flex-col mx-4 lg:mx-32 lg:gap-y-24 gap-y-10">
 				<h1 className="text-[1.63rem] lg:text-[2.2rem] mt-8 font-medium uppercase text-center w-full whitespace-nowrap text-black mb-8">
 					Download
 				</h1>
@@ -67,31 +67,12 @@ const Downloads = () => {
 								className="object-cover w-full h-40 rounded-lg opacity-20"
 							/>
 							<div className="mx-1">
-								<button
-									onClick={async () => {
-										try {
-											const response = await fetch(tab.file_url);
-											const blob = await response.blob();
-											const blobUrl = window.URL.createObjectURL(blob);
-											const link = document.createElement("a");
-											link.href = blobUrl;
-											link.download = "document.pdf";
-											document.body.appendChild(link);
-											link.click();
-
-											document.body.removeChild(link);
-											window.URL.revokeObjectURL(blobUrl);
-										} catch (error) {
-											toast.error(error.message);
-										}
-									}}
-									className="flex rounded-md gap-x-1.5 items-center justify-center w-full py-2 text-white bg-nill"
-								>
-									<FaCloudDownloadAlt size={22} /> Download
-								</button>
+							<a target="_blank" className="flex rounded-md gap-x-1.5 items-center justify-center w-full py-2 text-white bg-nill" href={tab.file_url}><FaCloudDownloadAlt size={22} /> Download</a>
+								
 							</div>
 							<div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
 								<p className="text-sm whitespace-nowrap">{tab.form_name}</p>
+								
 							</div>
 						</div>
 					))}

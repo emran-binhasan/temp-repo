@@ -51,7 +51,7 @@ const Directors = () => {
                         ${isScrolled ? "scale-105" : "scale-100"}`}
 				/>
 			</div>
-			<div className="flex flex-col px-4 lg:mx-32 gap-y-28">
+			<div className="flex flex-col px-4 lg:mx-32 lg:gap-y-24 gap-y-10">
 				<h1 className="text-[1.63rem] lg:text-[2.2rem] mt-8 font-medium uppercase text-center w-full whitespace-nowrap text-black mb-8">
 					Board of Directors
 				</h1>

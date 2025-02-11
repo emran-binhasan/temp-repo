@@ -174,19 +174,19 @@ const Menu = ({ menuRef, isMenuOpen, toggleMenu, sections, showAboutUs, setShowA
 									Bay's Galleria(2nd floor), 57, Gulshan
 									<br /> Avenue-1, Dhaka-1212, Bangladesh
 								</p>
-								<div className="flex w-full mt-2 lg:mt-6 gap-x-5">
-									<p className="flex items-center gap-x-1">
-										<FaFacebook />
+								<div className=" w-full hidden lg:flex mt-2 lg:mt-6 gap-x-5">
+								<a href="https://www.facebook.com/akk-securities" target="_blank" className="flex items-center gap-x-1">
+										<FaFacebook/>
 										Facebook
-									</p>
-									<p className="flex items-center gap-x-1">
+									</a>
+									<a href="https://www.facebook.com/akk-securities" target="_blank" className="flex items-center gap-x-1">
 										<FaLinkedin />
 										LinkedIn
-									</p>
-									<p className="flex items-center gap-x-1">
+									</a>
+									<a href="https://twitter.com/akk-securities" target="_blank" className="flex items-center gap-x-1">
 										<FaTwitter />
 										Twitter
-									</p>
+									</a>
 								</div>
 							</div>
 							<div>
@@ -197,6 +197,21 @@ const Menu = ({ menuRef, isMenuOpen, toggleMenu, sections, showAboutUs, setShowA
 								</p>
 								<p>Fax: (+88-02)-8831275</p>
 							</div>
+							<div className=" w-full lg:hidden flex mt-2 lg:mt-6 gap-x-5">
+									<a href="https://www.facebook.com/akk-securities" target="_blank" className="flex items-center gap-x-1">
+										<FaFacebook/>
+										Facebook
+									</a>
+									<a href="https://www.linkedin.com/company/akk-securities" target="_blank" className="flex items-center gap-x-1">
+										<FaLinkedin />
+										LinkedIn
+									</a>
+									<a href="https://twitter.com/akk-securities" target="_blank" className="flex items-center gap-x-1">
+										<FaTwitter />
+										Twitter
+									</a>
+								</div>
+
 						</div>
 					</div>
 				</div>

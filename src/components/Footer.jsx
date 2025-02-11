@@ -75,26 +75,36 @@ const Footer = () => {
 						<div>
 							<p>Our Stakeholders</p>
 							<div className="flex items-center justify-between w-full mt-2">
+								<a href="https://sec.gov.bd/" target="_blank">
 								<img
 									src={img1}
 									alt=""
 									className=""
 								/>
+								</a>
+								
+								<a target="_blank" href="https://dsebd.org/">
 								<img
 									src={img2}
 									alt=""
 									className=""
-								/>
+								/></a>
+								<a href="https://www.cse.com.bd/" target="_blank">
 								<img
 									src={img3}
 									alt=""
 									className="w-[5rem]"
 								/>
+								</a>
+								
+								<a href="https://www.cdbl.com.bd/" target="_blank">
 								<img
 									src={img4}
 									alt=""
 									className=""
 								/>
+								</a>
+								
 							</div>
 						</div>
 					</div>
@@ -234,18 +244,21 @@ const Footer = () => {
 			</div>
 			<div className="items-center justify-between mx-2 md:pt-6 lg:mx-32 sm:flex">
 				<div className="flex flex-row items-center justify-center mt-4 sm:justify-start lg:mt-10 gap-x-8">
+					<a href="https://www.facebook.com/akk-securities" target="_blank">
 					<FaFacebook
 						className="rounded-full p-2.5 border border-darkNill text-darkNill h-fit w-fit"
 						size={18}
 					/>
-					<FaLinkedin
+					</a>
+					<a href="https://www.facebook.com/akk-securities" target="_blank" ><FaLinkedin
 						className="rounded-full p-2.5 border border-darkNill text-darkNill h-fit w-fit"
 						size={18}
-					/>
-					<FaTwitter
+					/></a>
+					
+					<a href="https://twitter.com/akk-securities" target="_blank"><FaTwitter
 						className="rounded-full p-2.5 border border-darkNill text-darkNill h-fit w-fit"
 						size={18}
-					/>
+					/></a>
 				</div>
 				<div className="flex flex-row items-center mt-4 lg:mt-10 gap-x-8">
 					<p className="text-[#696969] mx-auto">

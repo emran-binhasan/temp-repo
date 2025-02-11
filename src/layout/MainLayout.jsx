@@ -8,7 +8,7 @@ const MainLayout = () => {
 		<div className="relative overflow-hidden">
 			<div className="min-h-screen overflow-hidden bg-white cursor-auto">
 				<Header />
-				<div className="pb-16 lg:pb-28 bg-[#f4f4f4]">
+				<div className="pb-12 lg:pb-28 bg-[#f4f4f4]">
 					<Outlet />
 				</div>
 				<div>

@@ -52,7 +52,7 @@ const Management = () => {
                         ${isScrolled ? "scale-105" : "scale-100"}`}
 				/>
 			</div>
-			<div className="flex flex-col px-4 lg:mx-32 gap-y-28">
+			<div className="flex flex-col px-4 lg:mx-32 lg:gap-y-24 gap-y-10">
 				<h1 className="text-[1.63rem] lg:text-[2.2rem] mt-8 font-medium uppercase text-center w-full whitespace-nowrap text-black mb-8">
 					Management Team
 				</h1>
@@ -65,8 +65,10 @@ const Management = () => {
 							src={tab.image_url}
 							className="h-auto block lg:mx-0 mx-auto w-auto max-w-[200px] max-h-[200px] object-cover"
 						/>
+						<div>
 						<Markdown content={tab.designation} />
 						<Markdown content={tab.description} />
+						</div>
 					</div>
 				))}
 				{error && (

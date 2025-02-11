@@ -55,7 +55,7 @@ const SpecialModal = ({ isOpen, onClose }) => {
 				{/* Left Image Section */}
 				<img
 					src={data.image_url}
-					alt="Special Offer"
+					alt="Notice"
 					className=""
 				/>
 				<button

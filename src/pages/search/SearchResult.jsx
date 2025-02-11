@@ -52,7 +52,7 @@ const SearchResults = () => {
 	}, [query]);
 
 	return (
-		<div className="flex flex-col mx-4 md:mx-6 lg:mx-32 gap-y-28">
+		<div className="flex flex-col mx-4 md:mx-6 lg:mx-32 lg:gap-y-24 gap-y-10">
 			<Cursor/>
 			<div className="mt-36">
 				<h1 className="mb-4 text-3xl font-medium">Are you looking for: "{query}"</h1>
