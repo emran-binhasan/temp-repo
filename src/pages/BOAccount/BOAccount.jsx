@@ -4,8 +4,10 @@ import AccountLayout from "./account_component/AccountLayout";
 import useScrollToTop from "../../utils/useScrollToTop";
 import { Fade } from "react-awesome-reveal";
 import Cursor from "../../components/Cursor";
+import useTitle from "../../utils/useTitle";
 
 const BOAccount = () => {
+	useTitle('BO Account')
 	useScrollToTop();
 	const location = useLocation();
 

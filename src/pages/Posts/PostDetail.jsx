@@ -15,7 +15,7 @@ const PostDetail = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const navigate = useNavigate();
   useScrollToTop();
-  useTitle(post?.title || "Loading...");
+  useTitle(post?.blog_title || "Loading...");
 
   if (!post) {
     setError(true); // If no post data is passed, set an error state
