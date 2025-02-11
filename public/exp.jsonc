@@ -1,0 +1,38 @@
+[
+	{
+		// first page. user will complete each input field and click submit btn. store this info as an object in localStorage
+		"id": "DP & BO Type",
+		"boCaption": "newBO",
+		"boType": "individual",
+		"email": "mksaadi820@gmail.com",
+		"mobile": "01814895576",
+		"residency": "RB"
+	},
+	{
+		// second page. same procedure as the first page
+		"id": "Basic Information",
+		"name": "Harris",
+		"mother": "Martha",
+		"father": "John",
+		"residency": "Bangladesh",
+		"Occupation": "Employed",
+		"gender": "male",
+		"maritalStatus": "married"
+	},
+	{
+		"id": "Bank Account",
+		"bankName": "Bank of Bangladesh",
+		"accountNumber": "1234567890",
+		"accountType": "saving",
+		"branchName": "Dhaka Branch",
+		"branchCode": "1234"
+	},
+	{
+		"id": "Nominees",
+		"name": "John Doe",
+		"relation": "Spouse",
+		"gender": "male",
+		"dateOfBirth": "1980-01-01",
+		"residency": "Bangladesh"
+	}
+]
