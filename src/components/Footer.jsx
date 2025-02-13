@@ -250,7 +250,7 @@ const Footer = () => {
 						size={18}
 					/>
 					</a>
-					<a href="https://www.facebook.com/akk-securities" target="_blank" ><FaLinkedin
+					<a href="https://www.linkedin.com/company/akk-securities" target="_blank" ><FaLinkedin
 						className="rounded-full p-2.5 border border-darkNill text-darkNill h-fit w-fit"
 						size={18}
 					/></a>
