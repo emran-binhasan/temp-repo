@@ -41,10 +41,10 @@ const Menu = ({ menuRef, isMenuOpen, toggleMenu, sections, showAboutUs, setShowA
 				{/* Close button */}
 				<button
 					onClick={toggleMenu}
-					className="absolute top-0 left-0 z-50 text-white lg:top-5 lg:left-4"
+					className="absolute top-[6px] left-4 z-50 text-white md:top-[12px] md:left-[46px] lg:left-[62px]"
 				>
 					<IoClose
-						size={32}
+						size={36}
 						strokeWidth={1.5}
 					/>
 				</button>
